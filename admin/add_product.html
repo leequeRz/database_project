@@ -91,7 +91,7 @@
                     <br>
 
                     <label for="name"><h2>Product Name</h2></label>
-                    <input type="text" placeholder="Enter Name" name="name" required>
+                    <input type="text" placeholder="Enter Name" name="product_name" required>
                     <div>
                         <h2>Category</h2>
                         <label class="selectdiv">
@@ -115,6 +115,11 @@
                     
                     <label for="price"><h2>Price</h2></label>
                     <input type="number" placeholder="Enter Price" name="price" required>
+                    
+                    <br>
+                    
+                    <label for="image"><h2>Image</h2></label>
+                    <input type="file" accept="image/png, image/jpeg, image/jpg" name="product_image">
 
                     <button type="submit" class="btn">Add</button>
                     <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>

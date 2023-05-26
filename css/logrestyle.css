@@ -18,7 +18,7 @@
 
 .row{
     width: 900px;
-    height: 700px;
+    height: 800px;
     border-radius: 10px;
     background: #fff;
     box-shadow: 5px 5px 10px 5px rgba(0,0,0,0.2);
@@ -190,23 +190,3 @@ img{
 .form-group {
 	margin-bottom: 1.5rem;
 }
-
-/* ================ Radio-box ================ */
-.container {
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	width: 100%;
-	display: flex;
-	justify-content: start;
-	align-items: center;
-	padding: 20px;
-}
-
-/* .input-role{
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    margin: 0 10px 0 10px;  
-} */

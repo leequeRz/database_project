@@ -704,7 +704,7 @@ main .recent-orders a.button-delete:hover {
   }
   
   /* Full-width input fields */
-  .form-container input[type=text], .form-container input[type=number] {
+  .form-container input[type=text], .form-container input[type=number], .form-container input[type=file] {
     width: 100%;
     padding: 15px 5px 15px 5px;
     margin: 5px 0 22px 0;
