@@ -24,7 +24,7 @@
         }
         else {
             $_SESSION['error'] = 'ใส่ข้อมูลไม่ถูกต้อง';
-            echo "Failed: " . mysqli_error($conn);
+            // echo "Failed: " . mysqli_error($conn);
         }
     }
     
@@ -48,7 +48,7 @@
 </head>
 <body>
 <?php if(isset($_SESSION['error'])) { ?>
-        <div class="alert">
+        <div class="alert-error">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
             <?php
                 echo $_SESSION['error'];
@@ -57,7 +57,7 @@
         </div>
     <?php  } ?>
     <?php if(isset($_SESSION['success'])) { ?>
-        <div class="alert">
+        <div class="alert-success">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
             <?php
                 echo $_SESSION['success'];
