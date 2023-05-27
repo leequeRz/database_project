@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    require_once '../config/db.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,8 +24,8 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="../image/main-logo.jpg">
-                    <h2>Ar<span class="primary">Here</span>Lee</h2>
+                    <img src="../image/main-logo.png">
+                    <h2>ARHERELEE</h2>
                 </div>
 
                 <div class="close" id="close-bin">
@@ -29,39 +34,39 @@
             </div>
 
             <div class="sidebar">
-                <a href="home.html">
+                <a href="home.php">
                     <i class="ri-dashboard-fill"></i>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="customer.html">
+                <a href="customer.php">
                     <i class="ri-user-3-line"></i>
                     <h3>Customers</h3>
                 </a>
-                <a href="staff.html">
+                <a href="staff.php">
                     <i class="ri-team-line"></i>
                     <h3>Staff</h3>
                 </a>
-                <a href="order.html">
+                <a href="order.php">
                     <i class="ri-file-list-3-line"></i>
                     <h3>Orders</h3>
                 </a>
-                <a href="product.html">
+                <a href="product.php">
                     <i class="ri-survey-line"></i>
                     <h3>Products</h3>
                 </a>
-                <a href="promotion.html">
+                <a href="promotion.php">
                     <i class="ri-coupon-3-line"></i>
                     <h3>Promotions</h3>
                 </a>
-                <a href="seat.html">
+                <a href="seat.php">
                     <span class="material-symbols-outlined">chair</span>
                     <h3>Seat</h3>
                 </a>
-                <a href="add_product.html">
+                <a href="add_product.php">
                     <i class="ri-add-line"></i>
                     <h3>Add Product</h3>
                 </a>
-                <a href="index.html">
+                <a href="index.php">
                     <i class="ri-logout-box-r-line"></i>
                     <h3>Logout</h3>
                 </a>
@@ -86,44 +91,37 @@
                             <th>Category</th>
                             <th>Name</th>
                             <th>Price</th>
+                            <th>Image</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
+                        <?php
+
+                            $select = mysqli_query($conn, "SELECT * FROM product p, category c WHERE p.category_id = c.category_id");
+
+                            while($row = mysqli_fetch_assoc($select)) {
+                            
+                            if(isset($_GET['delete'])) {
+                                $id = $_GET['delete'];
+                                mysqli_query($conn, "DELETE FROM product WHERE product_id = $id");
+                                header('location:product.php');
+                            }
+                        ?>
+
                         <tr>
-                            <td>FD001</td>
-                            <td>Food</td>
-                            <td>Pizza</td>
-                            <td>190</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
+                            <td><?php echo $row['product_id']; ?></td>
+                            <td class="primary"><?php echo $row['category_name']; ?></td>
+                            <td><?php echo $row['product_name']; ?></td>
+                            <td><?php echo $row['price']; ?></td>
+                            <td><img src="../image/<?php echo $row['image']; ?>" width=10 height=50></td>
+                            <td><a href="edit_product.php?edit=<?php echo $row['product_id']; ?>" class="button-edit">Edit</a></td>
+                            <td><a href="product.php?delete=<?php echo $row['product_id']; ?>" class="button-delete">Delete</a></td>
                         </tr>
-                        <tr>
-                            <td>DR003</td>
-                            <td>Drink</td>
-                            <td>Chocolate Milk</td>
-                            <td>45</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <td>AP007</td>
-                            <td>Appetizer</td>
-                            <td>Dumpling</td>
-                            <td>30</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <td>FD012</td>
-                            <td>Food</td>
-                            <td>Pork Fried rice</td>
-                            <td>65</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
+
+                        <?php }; ?>
                     </tbody>
                 </table>
             </div>

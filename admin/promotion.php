@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    require_once '../config/db.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,8 +24,8 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="../image/main-logo.jpg">
-                    <h2>Ar<span class="primary">Here</span>Lee</h2>
+                    <img src="../image/main-logo.png">
+                    <h2>ARHERELEE</h2>
                 </div>
 
                 <div class="close" id="close-bin">
@@ -29,39 +34,39 @@
             </div>
 
             <div class="sidebar">
-                <a href="home.html">
+                <a href="home.php">
                     <i class="ri-dashboard-fill"></i>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="customer.html">
+                <a href="customer.php">
                     <i class="ri-user-3-line"></i>
                     <h3>Customers</h3>
                 </a>
-                <a href="staff.html">
+                <a href="staff.php">
                     <i class="ri-team-line"></i>
                     <h3>Staff</h3>
                 </a>
-                <a href="order.html">
+                <a href="order.php">
                     <i class="ri-file-list-3-line"></i>
                     <h3>Orders</h3>
                 </a>
-                <a href="product.html">
+                <a href="product.php">
                     <i class="ri-survey-line"></i>
                     <h3>Products</h3>
                 </a>
-                <a href="promotion.html">
+                <a href="promotion.php">
                     <i class="ri-coupon-3-line"></i>
                     <h3>Promotions</h3>
                 </a>
-                <a href="seat.html">
+                <a href="seat.php">
                     <span class="material-symbols-outlined">chair</span>
                     <h3>Seat</h3>
                 </a>
-                <a href="add_product.html">
+                <a href="add_product.php">
                     <i class="ri-add-line"></i>
                     <h3>Add Product</h3>
                 </a>
-                <a href="index.html">
+                <a href="index.php">
                     <i class="ri-logout-box-r-line"></i>
                     <h3>Logout</h3>
                 </a>
@@ -82,58 +87,46 @@
                 <table style="overflow-y:auto;">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Promotion ID</th>
                             <th>Discount</th>
                             <th>Minimum Cost</th>
-                            <th>Amount</th>
+                            <th>Expired Date</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
+                        <?php
+
+                            $select = mysqli_query($conn, "SELECT * FROM promotion");
+
+                            while($row = mysqli_fetch_assoc($select)) {
+                            
+                            if(isset($_GET['delete'])) {
+                                $id = $_GET['delete'];
+                                mysqli_query($conn, "DELETE FROM promotion WHERE promotion_id = '$id'");
+                                header('location:promotion.php');
+                            }
+                        ?>
+
                         <tr>
-                            <td>001</td>
-                            <td class="danger">20%</td>
-                            <td>200</td>
-                            <td>5</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
+                            <td><?php echo $row['promotion_id']; ?></td>
+                            <td class="danger"><?php echo $row['discount']; ?></td>
+                            <td><?php echo $row['minimum_cost']; ?></td>
+                            <td><?php echo $row['expire_date']; ?></td>
+                            <td><a href="promotion.php?delete=<?php echo $row['promotion_id']; ?>" class="button-delete">Delete</a></td>
                         </tr>
-                        <tr>
-                            <td>002</td>
-                            <td class="danger">15%</td>
-                            <td>220</td>
-                            <td>10</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <td>003</td>
-                            <td class="danger">25%</td>
-                            <td>150</td>
-                            <td>3</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <td>004</td>
-                            <td class="danger">10%</td>
-                            <td>180</td>
-                            <td>15</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <td>005</td>
-                            <td class="danger">40%</td>
-                            <td>140</td>
-                            <td>5</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
+
+                        <?php }; ?>
                     </tbody>
+                    <!-- Open Form button -->
+                    <div>
+                        <a href="add_promotion.php"><button class="open-button">Add Promotion</button></a>
+                    </div>
                 </table>
+
+                
             </div>
         </main>
 

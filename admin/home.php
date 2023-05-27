@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    require_once '../config/db.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,8 +24,8 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="../image/main-logo.jpg">
-                    <h2>Ar<span class="primary">Here</span>Lee</h2>
+                    <img src="../image/main-logo.png">
+                    <h2>ARHERELEE</h2>
                 </div>
 
                 <div class="close" id="close-bin">
@@ -29,39 +34,39 @@
             </div>
 
             <div class="sidebar">
-                <a href="home.html">
+                <a href="home.php">
                     <i class="ri-dashboard-fill"></i>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="customer.html">
+                <a href="customer.php">
                     <i class="ri-user-3-line"></i>
                     <h3>Customers</h3>
                 </a>
-                <a href="staff.html">
+                <a href="staff.php">
                     <i class="ri-team-line"></i>
                     <h3>Staff</h3>
                 </a>
-                <a href="order.html">
+                <a href="order.php">
                     <i class="ri-file-list-3-line"></i>
                     <h3>Orders</h3>
                 </a>
-                <a href="product.html">
+                <a href="product.php">
                     <i class="ri-survey-line"></i>
                     <h3>Products</h3>
                 </a>
-                <a href="promotion.html">
+                <a href="promotion.php">
                     <i class="ri-coupon-3-line"></i>
                     <h3>Promotions</h3>
                 </a>
-                <a href="seat.html">
+                <a href="seat.php">
                     <span class="material-symbols-outlined">chair</span>
                     <h3>Seat</h3>
                 </a>
-                <a href="add_product.html">
+                <a href="add_product.php">
                     <i class="ri-add-line"></i>
                     <h3>Add Product</h3>
                 </a>
-                <a href="index.html">
+                <a href="index.php">
                     <i class="ri-logout-box-r-line"></i>
                     <h3>Logout</h3>
                 </a>
@@ -150,80 +155,42 @@
                             <th>Order ID</th>
                             <th>Total Price</th>
                             <th>Payment</th>
-                            <th>Type</th>
+                            <th>Order Type</th>
                             <th>Time</th>
+                            <th>Recipient</th>
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>#OD201</td>
-                            <td>560</td>
-                            <td>Cash</td>
-                            <td class="success">Online</td>
-                            <td>11/03/2023 13:59:01</td>
-                            <td><a href="#" class="button-detail">Details</a></td>
-                        </tr>
-                        <tr>
-                            <td>#OD200</td>
-                            <td>325</td>
-                            <td>Credit</td>
-                            <td class="success">Online</td>
-                            <td>11/03/2023 13:59:01</td>
-                            <td><a href="#" class="button-detail">Details</a></td>
-                        </tr>
-                        <tr>
-                            <td>#OD199</td>
-                            <td>120</td>
-                            <td>Credit</td>
-                            <td class="danger">Offline</td>
-                            <td>11/03/2023 13:59:01</td>
-                            <td><a href="#" class="button-detail">Details</a></td>
-                        </tr>
-                        <tr>
-                            <td>#OD198</td>
-                            <td>420</td>
-                            <td>Debit</td>
-                            <td class="danger">Offline</td>
-                            <td>11/03/2023 13:59:01</td>
-                            <td><a href="#" class="button-detail">Details</a></td>
-                        </tr>
-                        <tr>
-                            <td>#OD197</td>
-                            <td>600</td>
-                            <td>Cash</td>
-                            <td class="success">Online</td>
-                            <td>11/03/2023 13:59:01</td>
-                            <td><a href="#" class="button-detail">Details</a></td>
-                        </tr>
-                        <tr>
-                            <td>#OD196</td>
-                            <td>1120</td>
-                            <td>Credit</td>
-                            <td class="success">Online</td>
-                            <td>11/03/2023 13:59:01</td>
-                            <td><a href="#" class="button-detail">Details</a></td>
-                        </tr>
-                        <tr>
-                            <td>#OD195</td>
-                            <td>840</td>
-                            <td>Debit</td>
-                            <td class="danger">Offline</td>
-                            <td>11/03/2023 13:59:01</td>
-                            <td><a href="#" class="button-detail">Details</a></td>
-                        </tr>
-                        <tr>
-                            <td>#OD194</td>
-                            <td>215</td>
-                            <td>Cash</td>
-                            <td class="success">Online</td>
-                            <td>11/03/2023 13:59:01</td>
-                            <td><a href="#" class="button-detail">Details</a></td>
-                        </tr>
+                        <?php
+
+                            $select = mysqli_query($conn, "SELECT * FROM billing b, payment_method pm, order_type ot, staff_info s WHERE b.payment_id = pm.payment_id AND b.order_type_id = ot.order_type_id AND b.staff_id = s.staff_id");
+
+                            while($row = mysqli_fetch_assoc($select)) {
+
+                            if(isset($_GET['delete'])) {
+                                $id = $_GET['delete'];
+                                mysqli_query($conn, "DELETE FROM billing WHERE order_id = $id");
+                                header('location:order.php');
+                            }
+                            ?>
+
+                            <tr>
+                                <td><?php echo $row['order_id']; ?></td>
+                                <td><?php echo $row['total_price']; ?></td>
+                                <td class="primary"><?php echo $row['payment_type']; ?></td>
+                                <td class="success"><?php echo $row['order_type_name']; ?></td>
+                                <td><?php echo $row['order_date']; ?></td>
+                                <td><?php echo $row['staff_firstname']; ?></td>
+                                <td><a href="#" class="button-detail">Details</a></td>
+                                <td><a href="order.php?delete=<?php echo $row['order_id']; ?>" class="button-delete">Delete</a></td>
+                            </tr>
+
+                        <?php }; ?>
                     </tbody>
                 </table>
-                <a href="order.html">Show All</a>
+                <a href="order.php">Show All</a>
             </div>
         </main>
 

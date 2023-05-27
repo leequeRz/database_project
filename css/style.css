@@ -630,7 +630,12 @@ main .recent-orders a.button-delete:hover {
     opacity: 1;
     position: fixed;
     width: 280px;
-  }
+}
+
+main div .open-button {
+    margin-left: 330px;
+    margin-top: 400px;
+}
 
   select::-ms-expand {
     display: none;
@@ -691,6 +696,8 @@ main .recent-orders a.button-delete:hover {
     display: none;
     position: fixed;
     bottom: 10;
+    left: 710px;
+    top: 120px;
     justify-content: center;
     border: 3px solid #f1f1f1;
     z-index: 9;
@@ -701,6 +708,7 @@ main .recent-orders a.button-delete:hover {
     max-width: 500px;
     padding: 30px;
     background-color: white;
+    margin-left: 400px;
   }
   
   /* Full-width input fields */
@@ -739,3 +747,53 @@ main .recent-orders a.button-delete:hover {
   .form-container .btn:hover, .open-button:hover {
     opacity: 1;
   }
+
+  .message {
+    display: block;
+    background: var(--color-primary);
+    padding: 1.5rem 1rem;
+    font-size: 2rem;
+    color: var(--color-dark);
+    margin-bottom: 2rem;
+  }
+
+/* Modal styles */
+.modal .modal-dialog {
+    max-width: 400px;
+}
+
+.modal .modal-header, .modal .modal-body, .modal .modal-footer {
+    padding: 20px 30px;
+}
+
+.modal .modal-content {
+    border-radius: 1px;
+}
+
+.modal .modal-footer {
+    background: #ecf0f1;
+    border-radius: 0 0 1px 1px;
+}
+
+.modal .modal-title {
+    display: inline-block;
+}
+
+.modal .form-control {
+    border-radius: 1px;
+    box-shadow: none;
+    border-color: #dddddd;
+}
+
+.modal textarea.form-control {
+    resize: vertical;
+}
+
+.modal .btn {
+    border-radius: 1px;
+    min-width: 100px;
+} 
+
+.modal form label {
+    font-weight: normal;
+}                

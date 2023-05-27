@@ -1,3 +1,29 @@
+<?php
+
+    session_start();
+    require_once '../config/db.php';
+
+    if(isset($_POST['add_product'])) {
+
+        $promotion_id = $_POST['promotion_id'];
+        $promotion_discount = $_POST['promotion_discount'];
+        $promotion_minimum_cost = $_POST['promotion_minimum_cost'];
+        $promotion_expired_date = $_POST['promotion_expired_date'];
+
+        $insert = "INSERT INTO `promotion`(`promotion_id`, `expire_date`, `discount`, `minimum_cost`) VALUES ('$promotion_id','$promotion_expired_date','$promotion_discount','$promotion_minimum_cost')";
+
+        $result = mysqli_query($conn, $insert);
+
+        if($result) {
+            header("Loacation: add_promotion.php");
+        }
+        else {
+            echo "Failed: " . mysqli_error($conn);
+        }
+    }
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,8 +45,8 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="../image/main-logo.jpg">
-                    <h2>Ar<span class="primary">Here</span>Lee</h2>
+                    <img src="../image/main-logo.png">
+                    <h2>ARHERELEE</h2>
                 </div>
 
                 <div class="close" id="close-bin">
@@ -29,94 +55,71 @@
             </div>
 
             <div class="sidebar">
-                <a href="home.html">
+                <a href="home.php">
                     <i class="ri-dashboard-fill"></i>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="customer.html">
+                <a href="customer.php">
                     <i class="ri-user-3-line"></i>
                     <h3>Customers</h3>
                 </a>
-                <a href="staff.html">
+                <a href="staff.php">
                     <i class="ri-team-line"></i>
                     <h3>Staff</h3>
                 </a>
-                <a href="order.html">
+                <a href="order.php">
                     <i class="ri-file-list-3-line"></i>
                     <h3>Orders</h3>
                 </a>
-                <a href="product.html">
+                <a href="product.php">
                     <i class="ri-survey-line"></i>
                     <h3>Products</h3>
                 </a>
-                <a href="promotion.html">
+                <a href="promotion.php">
                     <i class="ri-coupon-3-line"></i>
                     <h3>Promotions</h3>
                 </a>
-                <a href="seat.html">
+                <a href="seat.php">
                     <span class="material-symbols-outlined">chair</span>
                     <h3>Seat</h3>
                 </a>
-                <a href="add_product.html">
+                <a href="add_product.php">
                     <i class="ri-add-line"></i>
                     <h3>Add Product</h3>
                 </a>
-                <a href="index.html">
+                <a href="index.php">
                     <i class="ri-logout-box-r-line"></i>
                     <h3>Logout</h3>
                 </a>
             </div>
         </aside>
-
+        
         <!----------------- Main content ----------------->
         <main>
-            <!-- <div class="date">
-                <input type="date">
-            </div> -->
-            <div>
-                <button class="open-button" onclick="openForm()">Open Form</button>
-            </div>
-            
-            <div class="form-popup" id="myForm">
-                <form action="/action_page.php" class="form-container">
-                    <h1>Add Product</h1>
+            <!-- <div class="form-popup" id="myForm"> -->
+                  <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data" class="form-container">
+
+                    <h1>Add Promotion</h1>
                     <br>
 
-                    <label for="name"><h2>Product Name</h2></label>
-                    <input type="text" placeholder="Enter Name" name="product_name" required>
-                    <div>
-                        <h2>Category</h2>
-                        <label class="selectdiv">
-                            <select>
-                                <option selected>Fast food</option>
-                                <option>Thai food</option>
-                                <option>Chinese food</option>
-                                <option>Dessert</option>
-                                <option>Drink</option>
-                            </select>
-                        </label>
-                    </div> 
-                    
+                    <label for="name"><h2>Promotion ID</h2></label>
+                    <input type="text" placeholder="Enter ID" name="promotion_id" required>
+                    <label for="price"><h2>Discount</h2></label>
+                    <input type="number" placeholder="Enter Discount" name="promotion_discount" required>
+                    <label for="price"><h2>Minimum Cost</h2></label>
+                    <input type="number" placeholder="Enter Minimum Cost" name="promotion_minimum_cost" required>
+                    <label for="expired_date"><h2>Expired Date</h2></label>
                     <br>
+                    <input type="date" placeholder="Enter Expired Date" name="promotion_expired_date" required>
+                    
                     <br>
                     <br>
                     <br>
 
-                    <!-- <label for="category"><b>Category</b></label>
-                    <input type="text" placeholder="Enter Category" name="category" required> -->
-                    
-                    <label for="price"><h2>Price</h2></label>
-                    <input type="number" placeholder="Enter Price" name="price" required>
-                    
-                    <br>
-                    
-                    <label for="image"><h2>Image</h2></label>
-                    <input type="file" accept="image/png, image/jpeg, image/jpg" name="product_image">
-
-                    <button type="submit" class="btn">Add</button>
-                    <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+                    <button type="submit" class="btn" name="add_product">Add</button>
+                    <a href="promotion.php"><button type="button" class="btn cancel" name="cancel">Cancel</button></a>
                 </form>
-            </div>
+            <!-- </div> -->
         </main>
 
         <!----------------- Right ----------------->

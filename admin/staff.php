@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    require_once '../config/db.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +13,7 @@
 
     <!-- CSS style -->
     <link rel="stylesheet" href="../css/style.css">
-    
+        
     <!-- Material icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0">
@@ -19,8 +24,8 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="../image/main-logo.jpg">
-                    <h2>Ar<span class="primary">Here</span>Lee</h2>
+                    <img src="../image/main-logo.png">
+                    <h2>ARHERELEE</h2>
                 </div>
 
                 <div class="close" id="close-bin">
@@ -29,39 +34,39 @@
             </div>
 
             <div class="sidebar">
-                <a href="home.html">
+                <a href="home.php">
                     <i class="ri-dashboard-fill"></i>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="customer.html">
+                <a href="customer.php">
                     <i class="ri-user-3-line"></i>
                     <h3>Customers</h3>
                 </a>
-                <a href="staff.html">
+                <a href="staff.php">
                     <i class="ri-team-line"></i>
                     <h3>Staff</h3>
                 </a>
-                <a href="order.html">
+                <a href="order.php">
                     <i class="ri-file-list-3-line"></i>
                     <h3>Orders</h3>
                 </a>
-                <a href="product.html">
+                <a href="product.php">
                     <i class="ri-survey-line"></i>
                     <h3>Products</h3>
                 </a>
-                <a href="promotion.html">
+                <a href="promotion.php">
                     <i class="ri-coupon-3-line"></i>
                     <h3>Promotions</h3>
                 </a>
-                <a href="seat.html">
+                <a href="seat.php">
                     <span class="material-symbols-outlined">chair</span>
                     <h3>Seat</h3>
                 </a>
-                <a href="add_product.html">
+                <a href="add_product.php">
                     <i class="ri-add-line"></i>
                     <h3>Add Product</h3>
                 </a>
-                <a href="index.html">
+                <a href="index.php">
                     <i class="ri-logout-box-r-line"></i>
                     <h3>Logout</h3>
                 </a>
@@ -70,80 +75,59 @@
 
         <!----------------- Main content ----------------->
         <main>
-            <h1>Customers</h1>
+            <h1>Staff</h1>
 
             <!-- <div class="date">
                 <input type="date">
             </div> -->
 
             <div class="recent-orders">
-                <h2>Customer Information</h2>
+                <h2>Staff Information</h2>
                 <!-- query ข้อมูลจาก db -->
                 <table>
                     <thead>
                         <tr>
-                            <th>Email</th>
+                            <th>Staff ID</th>
                             <th>Firstname</th>
                             <th>Lastname</th>
+                            <th>Position</th>
                             <th>Tel</th>
                             <th>Date of Birth</th>
                             <th>Gender</th>
-                            <th>Point</th>
-                            <th>Card Number</th>
+                            <th>Vehicle ID</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td class="primary">example@user.com</td>
-                            <td>Teerut</td>
-                            <td>P</td>
-                            <td>088xxxxxxx</td>
-                            <td>03/12/2002</td>
-                            <td>M</td>
-                            <td>250</td>
-                            <td>4356 0123 8713 0027</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <td class="primary">example@user.com</td>
-                            <td>Teerut</td>
-                            <td>P</td>
-                            <td>088xxxxxxx</td>
-                            <td>03/12/2002</td>
-                            <td>M</td>
-                            <td>250</td>
-                            <td>4356 0123 8713 0027</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <td class="primary">example@user.com</td>
-                            <td>Teerut</td>
-                            <td>P</td>
-                            <td>088xxxxxxx</td>
-                            <td>03/12/2002</td>
-                            <td>M</td>
-                            <td>250</td>
-                            <td>4356 0123 8713 0027</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <td class="primary">example@user.com</td>
-                            <td>Teerut</td>
-                            <td>P</td>
-                            <td>088xxxxxxx</td>
-                            <td>03/12/2002</td>
-                            <td>M</td>
-                            <td>250</td>
-                            <td>4356 0123 8713 0027</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
+                        <?php
+
+                            $select = mysqli_query($conn, "SELECT * FROM staff_info si, staff_position sp WHERE si.position_id = sp.position_id");
+
+                            while($row = mysqli_fetch_assoc($select)) {
+
+                            if(isset($_GET['delete'])) {
+                                $id = $_GET['delete'];
+                                mysqli_query($conn, "DELETE FROM staff_info WHERE staff_id = $id");
+                                header('location:staff.php');
+                            }
+                            ?>
+
+                            <tr>
+                                <td><?php echo $row['staff_id']; ?></td>
+                                <td><?php echo $row['staff_firstname']; ?></td>
+                                <td><?php echo $row['staff_lastname']; ?></td>
+                                <td class="primary"><?php echo $row['position_name']; ?></td>
+                                <td><?php echo $row['staff_tel']; ?></td>
+                                <td><?php echo $row['staff_DOB']; ?></td>
+                                <td><?php echo $row['staff_gender']; ?></td>
+                                <td><?php echo $row['vehicle_id']; ?></td>
+                                <td><a href="#" class="button-edit">Edit</a></td>
+                                <td><a href="staff.php?delete=<?php echo $row['staff_id']; ?>" class="button-delete">Delete</a></td>
+                            </tr>
+
+                        <?php }; ?>
                     </tbody>
                 </table>
             </div>

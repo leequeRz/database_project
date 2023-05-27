@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    require_once '../config/db.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,8 +24,8 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="../image/main-logo.jpg">
-                    <h2>Ar<span class="primary">Here</span>Lee</h2>
+                    <img src="../image/main-logo.png">
+                    <h2>ARHERELEE</h2>
                 </div>
 
                 <div class="close" id="close-bin">
@@ -29,39 +34,39 @@
             </div>
 
             <div class="sidebar">
-                <a href="home.html">
+                <a href="home.php">
                     <i class="ri-dashboard-fill"></i>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="customer.html">
+                <a href="customer.php">
                     <i class="ri-user-3-line"></i>
                     <h3>Customers</h3>
                 </a>
-                <a href="staff.html">
+                <a href="staff.php">
                     <i class="ri-team-line"></i>
                     <h3>Staff</h3>
                 </a>
-                <a href="order.html">
+                <a href="order.php">
                     <i class="ri-file-list-3-line"></i>
                     <h3>Orders</h3>
                 </a>
-                <a href="product.html">
+                <a href="product.php">
                     <i class="ri-survey-line"></i>
                     <h3>Products</h3>
                 </a>
-                <a href="promotion.html">
+                <a href="promotion.php">
                     <i class="ri-coupon-3-line"></i>
                     <h3>Promotions</h3>
                 </a>
-                <a href="seat.html">
+                <a href="seat.php">
                     <span class="material-symbols-outlined">chair</span>
                     <h3>Seat</h3>
                 </a>
-                <a href="add_product.html">
+                <a href="add_product.php">
                     <i class="ri-add-line"></i>
                     <h3>Add Product</h3>
                 </a>
-                <a href="index.html">
+                <a href="index.php">
                     <i class="ri-logout-box-r-line"></i>
                     <h3>Logout</h3>
                 </a>
@@ -70,62 +75,59 @@
 
         <!----------------- Main content ----------------->
         <main>
-            <h1>Seat</h1>
+            <h1>Customers</h1>
 
             <!-- <div class="date">
                 <input type="date">
             </div> -->
 
             <div class="recent-orders">
-                <h2>Recent Reservation</h2>
+                <h2>Customer Information</h2>
                 <!-- query ข้อมูลจาก db -->
                 <table>
                     <thead>
                         <tr>
-                            <th>Seat ID</th>
-                            <th>Seat Type</th>
-                            <th>Time</th>
+                            <th>User ID</th>
+                            <th>Email</th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Tel</th>
+                            <th>Date of Birth</th>
+                            <th>Gender</th>
+                            <th>Card Number</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>S004</td>
-                            <td>SS</td>
-                            <td>2023-07-04 10:51:13</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <td>S003</td>
-                            <td>SM</td>
-                            <td>2023-07-04 10:59:24</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <td>S009</td>
-                            <td>SL</td>
-                            <td>2023-07-04 11:22:13</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <td>S001</td>
-                            <td>SM</td>
-                            <td>2023-07-04 13:47:53</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <td>S011</td>
-                            <td>SS</td>
-                            <td>2023-07-04 17:12:09</td>
-                            <td><a href="#" class="button-edit">Edit</a></td>
-                            <td><a href="#" class="button-delete">Delete</a></td>
-                        </tr>
+                        <?php
+
+                            $select = mysqli_query($conn, "SELECT * FROM user");
+
+                            while($row = mysqli_fetch_assoc($select)) {
+
+                            if(isset($_GET['delete'])) {
+                                $id = $_GET['delete'];
+                                mysqli_query($conn, "DELETE FROM user WHERE user_id = $id");
+                                header('location:customer.php');
+                            }
+                            ?>
+
+                            <tr>
+                                <td><?php echo $row['user_id']; ?></td>
+                                <td class="primary"><?php echo $row['user_email']; ?></td>
+                                <td><?php echo $row['user_firstname']; ?></td>
+                                <td><?php echo $row['user_lastname']; ?></td>
+                                <td><?php echo $row['user_tel']; ?></td>
+                                <td><?php echo $row['user_DOB']; ?></td>
+                                <td><?php echo $row['user_gender']; ?></td>
+                                <td><?php echo $row['card_number']; ?></td>
+                                <td><a href="#" class="button-edit">Edit</a></td>
+                                <td><a href="customer.php?delete=<?php echo $row['user_id']; ?>" class="button-delete">Delete</a></td>
+                            </tr>
+
+                        <?php }; ?>
                     </tbody>
                 </table>
             </div>
