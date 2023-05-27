@@ -801,13 +801,26 @@ main div .open-button {
 
 /* alert box */
 
-.alert {
+.alert-success{
     padding: 20px;
     background-color: #48c018;
     color: white;
     margin-bottom: 15px;
   }
+
+.alert-error{
+    padding: 20px;
+    background-color: #e72323;
+    color: white;
+    margin-bottom: 15px;
+  }
   
+  .alert{
+    padding: 20px;
+    background-color: #48c018;
+    color: white;
+    margin-bottom: 15px;
+  }
   .closebtn {
     margin-left: 15px;
     color: white;
