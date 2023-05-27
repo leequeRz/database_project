@@ -1,6 +1,11 @@
 <?php
-    session_start();
-    require_once '../config/db.php';
+
+	session_start();
+	require_once '../config/db.php';
+    if(!isset($_SESSION['staff_login'])){
+        // header('location: index.php');
+        echo 'ไม่มีข้อมูล';
+    }
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +71,7 @@
                     <i class="ri-add-line"></i>
                     <h3>Add Product</h3>
                 </a>
-                <a href="index.php">
+                <a href="logout.php">
                     <i class="ri-logout-box-r-line"></i>
                     <h3>Logout</h3>
                 </a>
@@ -206,10 +211,17 @@
                 </div>
                 <!-- query ชื่อ user จาก db -->
                 <div class="profile">
-                    <div class="info">
-                        <p>Hey, <b>Username</b></p>
-                        <small class="text-muted">Admin</small>
-                    </div>
+                <div class="info">
+                    <?php 
+                    if(isset($_SESSION['staff_login'])){
+                        $staff_id = $_SESSION['staff_login'];
+                        $select = mysqli_query($conn, "SELECT * FROM staff_info si, staff_position sp WHERE staff_id = $staff_id AND si.position_id = sp.position_id");
+                        $row = mysqli_fetch_assoc($select);
+                    }
+                    ?>
+                    <p>Hi!, <b><?php echo $row['staff_firstname'] ?></b></p>
+                    <small class="text-muted"><?php echo $row['position_name']?></small>
+                </div>
                     <div class="profile-photo">
                         <img src="../image/profile.jpg">
                     </div>
