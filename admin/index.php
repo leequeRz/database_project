@@ -1,3 +1,8 @@
+<?php
+
+	session_start();
+	require_once '../config/pdo.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +15,15 @@
     <title>Login ARHereLee</title>
 </head>
 <body>
+    <form name="inpfrm" method="post" action="login_to.php">
+    <?php if(isset($_SESSION['error'])) { ?>
+    <div class="alert alert-danger"  role="alert">
+            <?php
+                echo $_SESSION['error'];
+                unset ($_SESSION['error']);
+            ?>
+    </div>
+    <?php  } ?>
     <div class="wrapper">
         <div class="container main">
             <div class="row">
@@ -24,15 +38,15 @@
                     <div class="input-box">
                         <header>Login Account</header>
                         <div class="input-field">
-                            <input type="text" class="input" id="username" required>
+                            <input name="email" type="email" class="input" required>
                             <label for="username">Email</label>
                         </div>
                         <div class="input-field">
-                            <input type="password" class="input" id="password" required>
+                            <input name="password" type="password" class="input" id="password" required>
                             <label for="password">Password</label>
                         </div>
                         <div class="input-field">
-                            <input type="submit" class="submit" Value="Sign In">
+                            <input name="signin" type="submit" class="submit" Value="Sign In">
                         </div>
                         <div class="signin">
                             <span>Already haven't an account?<a href="register.php"> Register Here</a></span>

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2023 at 04:18 PM
+-- Generation Time: May 27, 2023 at 08:44 PM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- PHP Version: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,13 +35,6 @@ CREATE TABLE `billing` (
   `payment_id` varchar(4) NOT NULL,
   `staff_id` int(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `billing`
---
-
-INSERT INTO `billing` (`order_id`, `total_price`, `order_type_id`, `order_date`, `payment_id`, `staff_id`) VALUES
-(1, 500, 'OT001', '2023-05-11 11:28:57', 'PAY1', 13);
 
 -- --------------------------------------------------------
 
@@ -176,7 +169,8 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `price`, `image`) VALUES
 (3, 'CG005', 'water', 12, 'Screenshot 2023-03-26 135810.png'),
 (4, 'CG001', 'กะเพรา', 22, 'Screenshot 2023-03-24 205452.png'),
-(5, 'CG002', 'กะเพรา', 144, 'Screenshot 2023-03-26 145805.png');
+(5, 'CG002', 'กะเพรา', 144, 'Screenshot 2023-03-26 145805.png'),
+(12, 'CG001', 'กาหรี่่', 60, 'กะหรี่ปั๊บคุณเชอร์รี่-กินอะไรดีเชียงใหม่2.jpg');
 
 -- --------------------------------------------------------
 
@@ -196,7 +190,10 @@ CREATE TABLE `promotion` (
 --
 
 INSERT INTO `promotion` (`promotion_id`, `expire_date`, `discount`, `minimum_cost`) VALUES
-('D00001', '2023-05-04 00:00:00', 30, 250);
+('D00001', '2023-05-04 00:00:00', 30, 250),
+('D00002', '2024-01-01 00:00:00', 30, 100),
+('D00003', '2023-05-31 00:00:00', 50, 200),
+('D00005', '2023-06-21 00:00:00', 50, 250);
 
 -- --------------------------------------------------------
 
@@ -206,18 +203,17 @@ INSERT INTO `promotion` (`promotion_id`, `expire_date`, `discount`, `minimum_cos
 
 CREATE TABLE `seat_reserve` (
   `reserve_id` int(11) NOT NULL,
-  `seat_id` int(4) NOT NULL,
-  `seat_type_id` varchar(2) NOT NULL,
-  `reserve_time` datetime NOT NULL
+  `seat_id` varchar(4) NOT NULL,
+  `seat_type_id` varchar(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `seat_reserve`
 --
 
-INSERT INTO `seat_reserve` (`reserve_id`, `seat_id`, `seat_type_id`, `reserve_time`) VALUES
-(3, 1, 'SM', '2023-05-27 13:37:42'),
-(4, 2, 'SL', '2023-05-27 13:37:42');
+INSERT INTO `seat_reserve` (`reserve_id`, `seat_id`, `seat_type_id`) VALUES
+(3, '1', 'SM'),
+(4, '2', 'SL');
 
 -- --------------------------------------------------------
 
@@ -267,6 +263,8 @@ CREATE TABLE `staff_info` (
   `staff_lastname` varchar(20) NOT NULL,
   `staff_tel` varchar(10) NOT NULL,
   `staff_DOB` date NOT NULL,
+  `staff_email` varchar(30) NOT NULL,
+  `staff_password` varchar(255) NOT NULL,
   `staff_gender` enum('M','F') NOT NULL,
   `vehicle_id` varchar(7) DEFAULT NULL,
   `position_id` varchar(5) NOT NULL
@@ -276,8 +274,10 @@ CREATE TABLE `staff_info` (
 -- Dumping data for table `staff_info`
 --
 
-INSERT INTO `staff_info` (`staff_id`, `staff_firstname`, `staff_lastname`, `staff_tel`, `staff_DOB`, `staff_gender`, `vehicle_id`, `position_id`) VALUES
-(13, 'A', 'B', '0983452176', '2023-05-17', 'F', NULL, 'PST02');
+INSERT INTO `staff_info` (`staff_id`, `staff_firstname`, `staff_lastname`, `staff_tel`, `staff_DOB`, `staff_email`, `staff_password`, `staff_gender`, `vehicle_id`, `position_id`) VALUES
+(1, 'Noppakorn', 'Sorndech', '0945128589', '2001-02-05', 'man.noppakorn@gmail.com', '248655', 'M', NULL, 'PST01'),
+(2, 'treerut', 'phonwijit', '0882952668', '2023-05-03', 'treerut@email.com', '123456', 'M', NULL, 'PST02'),
+(18, 'MAN', 'Noppakorn', '0818264902', '2023-05-03', 'man_noppakorn@hotmail.com', '159357', 'M', 'กก 444', 'PST03');
 
 -- --------------------------------------------------------
 
@@ -314,7 +314,6 @@ CREATE TABLE `user` (
   `user_gender` enum('M','F') NOT NULL,
   `user_email` varchar(30) NOT NULL,
   `user_password` varchar(15) NOT NULL,
-  `user_point` int(11) NOT NULL,
   `card_number` varchar(16) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -322,8 +321,10 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_firstname`, `user_lastname`, `user_tel`, `user_DOB`, `user_gender`, `user_email`, `user_password`, `user_point`, `card_number`) VALUES
-(3, 'Teerut', 'Phonwijit', '0882952668', '2023-05-03', 'M', 'tee008.ph@gmail.com', 'asdasd', 250, '4566543756488097');
+INSERT INTO `user` (`user_id`, `user_firstname`, `user_lastname`, `user_tel`, `user_DOB`, `user_gender`, `user_email`, `user_password`, `card_number`) VALUES
+(3, 'Teerut', 'Phonwijit', '0882952668', '2023-05-03', 'M', 'tee008.ph@gmail.com', 'asdasd', '4566543756488097'),
+(5, 'MAN', 'Noppakorn', '0945128589', '2023-05-09', 'M', 'man_noppakorn@hotmail.com', '123456', NULL),
+(6, 'Noppakorn', 'Sorndech', '0818264902', '2023-05-10', 'M', 'man.noppakorn@gmail.com', '123456', NULL);
 
 -- --------------------------------------------------------
 
@@ -338,14 +339,6 @@ CREATE TABLE `user_action` (
   `promotion_id` varchar(7) DEFAULT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user_action`
---
-
-INSERT INTO `user_action` (`action_id`, `order_id`, `reserve_id`, `promotion_id`, `user_id`) VALUES
-(1, 1, 4, 'D00001', 3),
-(2, 1, 4, 'D00001', 3);
 
 -- --------------------------------------------------------
 
@@ -500,7 +493,7 @@ ALTER TABLE `billing`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `product_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `seat_reserve`
@@ -518,13 +511,13 @@ ALTER TABLE `staff_address`
 -- AUTO_INCREMENT for table `staff_info`
 --
 ALTER TABLE `staff_info`
-  MODIFY `staff_id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `staff_id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user_action`
