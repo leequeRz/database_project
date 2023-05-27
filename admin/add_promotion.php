@@ -108,6 +108,10 @@
                     <span class="material-symbols-outlined">chair</span>
                     <h3>Seat</h3>
                 </a>
+                <a href="setting.php">
+                    <i class="ri-settings-5-fill"></i>
+                    <h3>Setting</h3>
+                </a>
                 <a href="add_product.php">
                     <i class="ri-add-line"></i>
                     <h3>Add Product</h3>
