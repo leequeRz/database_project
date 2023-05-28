@@ -250,6 +250,7 @@
                                         <div class="form-group">
                                             <label>Vehicle ID</label>
                                             <input type="text" class="form-control" placeholder="<?php echo $row['vehicle_id']; ?>" name="vehicle_id" value="<?php $row['vehicle_id']; ?>">
+                                            <input type="text" class="form-control" placeholder="<?php echo $row['vehicle_id']; ?>" name="vehicle_id" value="<?php $row['vehicle_id']; ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -265,6 +266,8 @@
                                                 <label for="gender">Gender:</label>
                                                 <br>
                                                 <select id="gender" name="staff_gender">
+                                                    <option value="M" <?php echo ($row['staff_gender'] === 'M') ? 'selected' : ''; ?>>Male</option>
+                                                    <option value="F" <?php echo ($row['staff_gender'] === 'F') ? 'selected' : ''; ?>>Female</option>
                                                     <option value="M" <?php echo ($row['staff_gender'] === 'M') ? 'selected' : ''; ?>>Male</option>
                                                     <option value="F" <?php echo ($row['staff_gender'] === 'F') ? 'selected' : ''; ?>>Female</option>
                                                 </select>
