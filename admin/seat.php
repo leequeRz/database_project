@@ -127,7 +127,7 @@
                                         <td><?php echo $row['seat_type_id']; ?></td>
                                         <td class="primary"><?php echo $row['user_id']; ?></td>
                                         <?php if ($row['table_status'] == 1): ?>
-                                            <td class="danger">เต็ม</td>
+                                            <td class="danger">จอง</td>
                                         <?php else: ?>
                                             <td class="success">ว่าง</td>
                                         <?php endif; ?>
@@ -171,7 +171,7 @@
                     <small class="text-muted"><?php echo $row['position_name']?></small>
                     </div>
                     <div class="profile-photo">
-                        <img src="../image/profile.jpg">
+                        <img src="../image/default-profile.jpg">
                     </div>
                 </div>
             </div>

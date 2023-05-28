@@ -10,9 +10,30 @@
 
     $id = $_GET['edit'];
 
+    if(isset($_POST['submit'])) {
+
+        $staff_image = $_FILES['staff_image']['name'];
+        $staff_image_tmp_name = $_FILES['staff_image']['tmp_name'];
+        $staff_image_folder = '../image/'.$staff_image;
+
+        $update = "UPDATE product SET image='$staff_image' WHERE staff_id = $id";
+
+        $result = mysqli_query($conn, $update);
+
+        if($result) {
+            move_uploaded_file($staff_image_tmp_name, $staff_image_folder);
+            $_SESSION['success'] = "update รูปภาพสำเร็จ";
+            header("Loacation: edit_staff.php");
+        }
+        else {
+            $_SESSION['error'] ='ไม่พบข้อมูล';
+            header("Loacation: edit_staff.php");
+        }
+    }
+
     if(isset($_POST['update_staff'])) {
 
-        $staff_firstname = $_POST['staff_firstname'];
+        $staff_image = $_POST['staff_firstname'];
         $staff_lastname = $_POST['staff_lastname'];
         $staff_tel = $_POST['staff_tel'];
         $staff_dob = $_POST['staff_DOB'];
@@ -178,15 +199,25 @@
                         <div class="p-4">
                             <div class="img-circle text-center mb-3">
                                 <!-- query iamge มาใส่ -->
-                                <img src="/database_project/img/lee.jpg" alt="" id="profile-pic">
-                                <!-- <img src="img/user2.jpg" alt="Image" class="shadow"> -->
+                                <?php
+                                    // Fetch the image path from the database
+                                    $imagePath = $row['staff_image'];
+
+                                    if (!empty($imagePath)) {
+                                        // Display the existing profile image
+                                        echo '<img src="'.$imagePath.'" class="shadow">';
+                                    } else {
+                                        // Display a default image if no profile image is set
+                                        echo '<img src="../image/default-profile.jpg" class="shadow">';
+                                    }
+                                ?>
                             </div>
                             <!-- query firstname lastname มาใส่ -->
                             <h4 class="text-center"><?php echo $row['staff_firstname']; ?></h4>
                             <h4 class="text-center"><?php echo $row['staff_lastname']; ?></h4>
                             <!-- update รูป -->
-                            <label class="update-profile" for="input-file">Update</label>
-                            <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file">
+                            <!-- <label class="update-profile" for="input-file">Update</label>
+                            <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file"> -->
                         </div>
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
@@ -265,8 +296,6 @@
                                                 <label for="gender">Gender:</label>
                                                 <br>
                                                 <select id="gender" name="staff_gender">
-                                                    <option value="M" <?php echo ($row['staff_gender'] === 'M') ? 'selected' : ''; ?>>Male</option>
-                                                    <option value="F" <?php echo ($row['staff_gender'] === 'F') ? 'selected' : ''; ?>>Female</option>
                                                     <option value="M" <?php echo ($row['staff_gender'] === 'M') ? 'selected' : ''; ?>>Male</option>
                                                     <option value="F" <?php echo ($row['staff_gender'] === 'F') ? 'selected' : ''; ?>>Female</option>
                                                 </select>
