@@ -3,6 +3,11 @@
     session_start();
     require_once '../config/db.php';
 
+    if(!isset($_SESSION['staff_login'])){
+        // header('location: index.php');
+        echo 'ไม่มีข้อมูล';
+    }
+
     $id = $_GET['edit'];
 
     if(isset($_POST['update_product'])) {
@@ -20,7 +25,7 @@
 
         if($result) {
             move_uploaded_file($product_image_tmp_name, $product_image_folder);
-            header("Loacation: add_product.php");
+            header("Loacation: product.php");
         }
         else {
             echo "Failed: " . mysqli_error($conn);
@@ -88,13 +93,17 @@
                     <span class="material-symbols-outlined">chair</span>
                     <h3>Seat</h3>
                 </a>
-                <a href="setting.php">
+                <a href="edit_staff.php?edit=<?php echo $_SESSION['staff_login']; ?>">
                     <i class="ri-settings-5-fill"></i>
                     <h3>Setting</h3>
                 </a>
                 <a href="add_product.php">
                     <i class="ri-add-line"></i>
                     <h3>Add Product</h3>
+                </a>
+                <a href="add_promotion.php">
+                    <i class="ri-add-line"></i>
+                    <h3>Add Promotion</h3>
                 </a>
                 <a href="logout.php">
                     <i class="ri-logout-box-r-line"></i>
@@ -119,13 +128,13 @@
                         while($row = mysqli_fetch_assoc($select)){
 
                     ?>
-                  <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data" class="form-container">
+                <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data" class="form-container">
 
                     <h1>Update Product</h1>
                     <br>
 
                     <label for="name"><h2>Product Name</h2></label>
-                    <input type="text" placeholder="Enter Name" value="<?php $row['product_name']; ?>" name="product_name" required>
+                    <input type="text" placeholder="<?php $row['product_name']; ?>" value="<?php $row['product_name']; ?>" name="product_name" required>
                     <div>
                         <h2>Category</h2>
                         <label class="selectdiv" name="product_category">

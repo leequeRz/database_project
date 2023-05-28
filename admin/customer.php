@@ -66,13 +66,17 @@
                     <span class="material-symbols-outlined">chair</span>
                     <h3>Seat</h3>
                 </a>
-                <a href="setting.php">
+                <a href="edit_staff.php?edit=<?php echo $_SESSION['staff_login']; ?>">
                     <i class="ri-settings-5-fill"></i>
                     <h3>Setting</h3>
                 </a>
                 <a href="add_product.php">
                     <i class="ri-add-line"></i>
                     <h3>Add Product</h3>
+                </a>
+                <a href="add_promotion.php">
+                    <i class="ri-add-line"></i>
+                    <h3>Add Promotion</h3>
                 </a>
                 <a href="logout.php">
                     <i class="ri-logout-box-r-line"></i>
@@ -131,7 +135,6 @@
                                 <td><?php echo $row['user_DOB']; ?></td>
                                 <td><?php echo $row['user_gender']; ?></td>
                                 <td><?php echo $row['card_number']; ?></td>
-                                <td><a href="#" class="button-edit">Edit</a></td>
                                 <td><a href="customer.php?delete=<?php echo $row['user_id']; ?>" class="button-delete">Delete</a></td>
                             </tr>
 
