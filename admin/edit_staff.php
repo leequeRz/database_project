@@ -14,7 +14,7 @@
 
         $staff_image = $_FILES['staff_image']['name'];
         $staff_image_tmp_name = $_FILES['staff_image']['tmp_name'];
-        $staff_image_folder = '../image/'.$staff_image;
+        $staff_image_folder = '../img/'.$staff_image;
 
         $update = "UPDATE product SET image='$staff_image' WHERE staff_id = $id";
 
@@ -201,7 +201,7 @@
                                 <!-- query iamge มาใส่ -->
                                 <?php
                                     // Display a default image if no profile image is set
-                                    echo '<img src="../image/default-profile.jpg" class="shadow">';
+                                    echo '<img src="../img/default-profile.jpg" class="shadow">';
                                 ?>
                             </div>
                             <!-- query firstname lastname มาใส่ -->

@@ -70,7 +70,7 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="../image/main-logo.png">
+                    <img src="../img/main-logo.png">
                     <h2>ARHERELEE</h2>
                 </div>
 
@@ -179,7 +179,7 @@
                     <small class="text-muted"><?php echo $row['position_name']?></small>
                     </div>
                     <div class="profile-photo">
-                        <img src="../image/default-profile.jpg">
+                        <img src="../img/default-profile.jpg">
                     </div>
                 </div>
             </div>
