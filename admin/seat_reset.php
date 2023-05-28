@@ -5,8 +5,6 @@
 
     if (!isset($_SESSION['staff_login'])) {
         echo 'ไม่มีข้อมูล';
-    } else if (!isset($_SESSION['reserve_id'])) {
-        echo 'ไม่มีข้อมูล reserve_id';
     } else {
 
         // $reserve_id = $_SESSION['reserve_id'];

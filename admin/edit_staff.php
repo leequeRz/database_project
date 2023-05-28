@@ -250,7 +250,6 @@
                                         <div class="form-group">
                                             <label>Vehicle ID</label>
                                             <input type="text" class="form-control" placeholder="<?php echo $row['vehicle_id']; ?>" name="vehicle_id" value="<?php $row['vehicle_id']; ?>">
-                                            <input type="text" class="form-control" placeholder="<?php echo $row['vehicle_id']; ?>" name="vehicle_id" value="<?php $row['vehicle_id']; ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
