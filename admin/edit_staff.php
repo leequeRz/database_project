@@ -178,15 +178,30 @@
                         <div class="p-4">
                             <div class="img-circle text-center mb-3">
                                 <!-- query iamge มาใส่ -->
-                                <img src="/database_project/img/lee.jpg" alt="" id="profile-pic">
-                                <!-- <img src="img/user2.jpg" alt="Image" class="shadow"> -->
+                                <?php
+                                    // Fetch the image path from the database
+                                    $imagePath = $row['staff_image'];
+
+                                    if (!empty($imagePath)) {
+                                        // Display the existing profile image
+                                        echo '<img src="'.$imagePath.'" class="shadow">';
+                                    } else {
+                                        // Display a default image if no profile image is set
+                                        echo '<img src="../image/default-profile.jpg" class="shadow">';
+                                    }
+                                ?>
                             </div>
                             <!-- query firstname lastname มาใส่ -->
                             <h4 class="text-center"><?php echo $row['staff_firstname']; ?></h4>
                             <h4 class="text-center"><?php echo $row['staff_lastname']; ?></h4>
                             <!-- update รูป -->
-                            <label class="update-profile" for="input-file">Update</label>
-                            <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file">
+                            <!-- <label class="update-profile" for="input-file">Update</label>
+                            <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file"> -->
+                            <form action="update_profile.php" method="POST" enctype="multipart/form-data">
+                                <label class="update-profile" for="input-file">Update</label>
+                                <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file" name="profile-image">
+                                <input type="submit" value="Save" name="submit">
+                            </form>
                         </div>
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
@@ -249,7 +264,6 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Vehicle ID</label>
-                                            <input type="text" class="form-control" placeholder="<?php echo $row['vehicle_id']; ?>" name="vehicle_id" value="<?php $row['vehicle_id']; ?>">
                                             <input type="text" class="form-control" placeholder="<?php echo $row['vehicle_id']; ?>" name="vehicle_id" value="<?php $row['vehicle_id']; ?>">
                                         </div>
                                     </div>
