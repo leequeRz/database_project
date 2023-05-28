@@ -6,6 +6,21 @@
         // header('location: index.php');
         echo 'ไม่มีข้อมูล';
     }
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "arherelee";
+
+    try {
+
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username,$password);
+        //$conn->setAttirbute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        echo "Connect Suscess";
+
+    } catch(PDOException $e) {
+        echo "Connection failed:" . $e->getMessage();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -101,7 +116,7 @@
                         <div class="left">
                             <h3>Total Sales</h3>
                             <!-- query ข้อมูลยอดขาย -->
-                            <h1>$25,023</h1>
+                            <h1>$21,023</h1>
                         </div>
 
                         <div class="progress">
@@ -142,17 +157,24 @@
                     <div class="middle">
                         <div class="left">
                             <h3>Total Customers</h3>
+                            <?php
+                                $sql = "SELECT COUNT(*) as users FROM user";
+                                $query = $conn->prepare($sql);
+                                $query->execute();
+                                $fetch = $query->fetch();
+                            ?>
                             <!-- query ข้อมูลจำนวน user -->
-                            <h1>10,238</h1>
+                            <h1><?= $fetch['users'] ?></h1>                           
                         </div>
 
                         <div class="progress">
-                            <svg>
+                            
+                            <!-- <svg>
                                 <circle cx="38" cy="38" r="36"></circle>
                             </svg>
                             <div class="number">
                                 <p>44%</p>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <small class="text-muted">Last 24 Hours</small>
