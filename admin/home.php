@@ -6,21 +6,6 @@
         // header('location: index.php');
         echo 'ไม่มีข้อมูล';
     }
-
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "arherelee";
-
-    try {
-
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username,$password);
-        //$conn->setAttirbute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "Connect Suscess";
-
-    } catch(PDOException $e) {
-        echo "Connection failed:" . $e->getMessage();
-    }
 ?>
 
 <!DOCTYPE html>
@@ -155,17 +140,26 @@
                 <div class="members">
                     <i class="ri-user-3-line"></i>
                     <div class="middle">
-                        <div class="left">
-                            <h3>Total Customers</h3>
-                            <?php
-                                $sql = "SELECT COUNT(*) as users FROM user";
-                                $query = $conn->prepare($sql);
-                                $query->execute();
-                                $fetch = $query->fetch();
-                            ?>
-                            <!-- query ข้อมูลจำนวน user -->
-                            <h1><?= $fetch['users'] ?></h1>                           
-                        </div>
+                    <div class="left">
+                        <h3>Total Customers</h3>
+                        <?php
+                            $sql = "SELECT COUNT(*) as users FROM user";
+                            $result = mysqli_query($conn, $sql);
+                            
+                            if ($result) {
+                                $fetch = mysqli_fetch_assoc($result);
+                                if ($fetch && isset($fetch['users'])) {
+                                    $userCount = $fetch['users'];
+                                } else {
+                                    $userCount = 0; // Set a default value if the query doesn't return valid data
+                                }
+                            } else {
+                                $userCount = 0; // Set a default value if the query fails
+                            }
+                        ?>
+                        <h1><?php echo $userCount; ?></h1>                           
+                    </div>
+
 
                         <div class="progress">
                             

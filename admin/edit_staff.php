@@ -200,16 +200,8 @@
                             <div class="img-circle text-center mb-3">
                                 <!-- query iamge มาใส่ -->
                                 <?php
-                                    // Fetch the image path from the database
-                                    $imagePath = $row['staff_image'];
-
-                                    if (!empty($imagePath)) {
-                                        // Display the existing profile image
-                                        echo '<img src="'.$imagePath.'" class="shadow">';
-                                    } else {
-                                        // Display a default image if no profile image is set
-                                        echo '<img src="../image/default-profile.jpg" class="shadow">';
-                                    }
+                                    // Display a default image if no profile image is set
+                                    echo '<img src="../image/default-profile.jpg" class="shadow">';
                                 ?>
                             </div>
                             <!-- query firstname lastname มาใส่ -->
