@@ -95,11 +95,10 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Reserve ID</th>
-                            <th>User ID</th>
-                            <th>Seat ID</th>
-                            <th>Seat Type</th>
-                            <th>Reservation Time</th>
+                            <th>table_name</th>
+                            <th>table_size</th>
+                            <th>user_id</th>
+                            <th>status</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -108,27 +107,37 @@
                     <tbody>
                         <?php
 
-                            $select = mysqli_query($conn, "SELECT * FROM seat_reserve sr, seat_type st, user_action ua WHERE sr.seat_type_id = st.seat_type_id AND sr.reserve_id = ua.reserve_id");
+                            $select = mysqli_query($conn, "SELECT * FROM seat_reserve sr, seat_type st WHERE sr.seat_type_id = st.seat_type_id ");
 
-                            while($row = mysqli_fetch_assoc($select)) {
+                            while ($row = mysqli_fetch_assoc($select)){
 
-                            if(isset($_GET['delete'])) {
-                                $id = $_GET['delete'];
-                                mysqli_query($conn, "DELETE FROM seat_reserve WHERE reserve_id = $id");
-                                header('location:seat.php');
-                            }
+                            // if(isset($_GET['delete'])) {
+                            //     $id = $_GET['delete'];
+                            //     mysqli_query($conn, "DELETE FROM seat_reserve WHERE reserve_id = $id");
+                            //     header('location:seat.php');
+                            // }
                             ?>
 
-                            <tr>
-                                <td><?php echo $row['reserve_id']; ?></td>
-                                <td><?php echo $row['user_id']; ?></td>
-                                <td><?php echo $row['seat_id']; ?></td>
-                                <td class="primary"><?php echo $row['seat_type_name']; ?></td>
-                                <td><?php echo $row['reserve_time']; ?></td>
-                                <td><a href="seat.php?delete=<?php echo $row['reserve_id']; ?>" class="button-delete">Delete</a></td>
-                            </tr>
+                                <tr>
+                                        <td><?php echo $row['table_name']; ?></td>
+                                        <td><?php echo $row['seat_type_id']; ?></td>
+                                        <td class="primary"><?php echo $row['user_id']; ?></td>
+                                        <?php if ($row['table_status'] == 1): ?>
+                                            <td class="danger">เต็ม</td>
+                                        <?php else: ?>
+                                            <td class="success">ว่าง</td>
+                                        <?php endif; ?>
+                                        <td>
+                                            <a href="seat_reset.php?edit=<?php echo $row['reserve_id']; ?>" class="button-edit">Edit</a>
+                                        </td>
+                                    </tr>
 
-                        <?php }; ?>
+                                    <?php
+                                    // $_SESSION['reserve_id'] = $row['reserve_id'];
+                                }; ?>
+
+
+                        
                     </tbody>
                 </table>
             </div>
