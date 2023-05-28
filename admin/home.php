@@ -67,7 +67,7 @@
                     <span class="material-symbols-outlined">chair</span>
                     <h3>Seat</h3>
                 </a>
-                <a href="edit_staff.php">
+                <a href="edit_staff.php?edit=<?php echo $_SESSION['staff_login']; ?>">
                     <i class="ri-settings-5-fill"></i>
                     <h3>Setting</h3>
                 </a>
@@ -75,9 +75,9 @@
                     <i class="ri-add-line"></i>
                     <h3>Add Product</h3>
                 </a>
-                <a href="edit_staff.php?edit=<?php echo $_SESSION['staff_login']; ?>">
-                    <i class="ri-settings-5-fill"></i>
-                    <h3>Setting</h3>
+                <a href="add_promotion.php">
+                    <i class="ri-add-line"></i>
+                    <h3>Add Promotion</h3>
                 </a>
                 <a href="logout.php">
                     <i class="ri-logout-box-r-line"></i>
@@ -141,7 +141,7 @@
                     <i class="ri-user-3-line"></i>
                     <div class="middle">
                         <div class="left">
-                            <h3>Total Members</h3>
+                            <h3>Total Customers</h3>
                             <!-- query ข้อมูลจำนวน user -->
                             <h1>10,238</h1>
                         </div>

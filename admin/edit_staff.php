@@ -18,35 +18,106 @@
         $staff_dob = $_POST['staff_DOB'];
         $staff_gender = $_POST['staff_gender'];
         $vehicle_id = $_POST['vehicle_id'];
+        if(($staff_firstname !="") && ($staff_lastname !="")&& ($staff_tel !="")){
+            $update = "UPDATE staff_info SET staff_firstname='$staff_firstname', staff_lastname='$staff_lastname', staff_tel='$staff_tel', staff_DOB='$staff_dob', staff_gender='$staff_gender', vehicle_id='$vehicle_id' WHERE staff_id = $id";
 
-        $update = "UPDATE staff_info SET staff_firstname='$staff_firstname', staff_lastname='$staff_lastname', staff_tel='$staff_tel', staff_DOB='$staff_dob', staff_gender='$staff_gender', vehicle_id='$vehicle_id' WHERE staff_id = $id";
+            $result = mysqli_query($conn, $update);
 
-        $result = mysqli_query($conn, $update);
-
-        if($result) {
-            header("Loacation: edit_staff.php");
-        }
-        else {
-            echo "Failed: " . mysqli_error($conn);
-        }
+            if($result) {
+                if ($vehicle_id == "") {
+                    $query = "UPDATE staff_info SET vehicle_id = NULL WHERE staff_id = $id";
+                    mysqli_query($conn, $query);
+                    $_SESSION['success'] = "update ข้อมูลสำเร็จ";
+                    header("Loacation: edit_staff.php");
+                } else {
+                    $_SESSION['success'] = "update ข้อมูลสำเร็จ";
+                    header("Loacation: edit_staff.php");
+                }      
+            }
+            else {
+                $_SESSION['error'] ='ไม่พบข้อมูล';
+                header("Loacation: edit_staff.php");
+            }
+      } else {
+        $_SESSION['error'] ='กรอกข้อมูลไม่ครบ';
+        header("Loacation: edit_staff.php");
+      }
     }
 
     if(isset($_POST['update_staff_password'])) {
 
-        $staff_password = $_POST['staff_password'];
-
-        $update = "UPDATE staff_info SET staff_password='$staff_password";
-
-        $result = mysqli_query($conn, $update);
-
-        if($result) {
+        $oldpassword = $_POST['old-password'];
+        $newpassword = $_POST['new-password'];
+        $confirmpassword = $_POST['confirm-password'];
+        
+        $query = "SELECT* FROM staff_info WHERE staff_id = $id";
+        $select = mysqli_query($conn, $query);
+        $row = mysqli_fetch_assoc($select);
+       
+        if($row['staff_password'] == $oldpassword){
+            if($newpassword==$confirmpassword){
+                $update = "UPDATE staff_info SET staff_password='$newpassword' WHERE staff_id = $id";
+                mysqli_query($conn, $update);
+                $_SESSION['success'] ='อัพเดท password สำเร็จ';
+                header("Loacation: edit_staff.php");
+            }else{
+                $_SESSION['error'] ='password ไม่ตรงกัน!!!';
+                header("Loacation: edit_staff.php");
+            }
+        }else{
+            $_SESSION['error'] ='password ไม่ถูกต้อง!!!';
             header("Loacation: edit_staff.php");
-        }
-        else {
-            echo "Failed: " . mysqli_error($conn);
         }
     }
     
+    if(isset($_POST['update_staff_address'])) {
+
+        $address1 = $_POST['address1'];
+        $address2 = $_POST['address2'];
+        $city = $_POST['city'];
+        $province = $_POST['province'];
+        $postalcode = $_POST['postal-code'];
+        if(($address1 !="") && ($city !="")&& ($province !="")&& ($postalcode !="")){
+            
+            $query = "SELECT* FROM staff_address WHERE staff_id = $id";
+            $select = mysqli_query($conn, $query);
+            $row = mysqli_fetch_assoc($select);
+            
+            if($row > 0){
+                
+                    $update = "UPDATE staff_address SET staff_address_line1='$address1' WHERE staff_id = $id ";
+                    mysqli_query($conn, $update);
+                    $update = "UPDATE staff_address SET staff_address_line2='$address2' WHERE staff_id = $id ";
+                    mysqli_query($conn, $update);
+                    $update = "UPDATE staff_address SET staff_city='$city' WHERE staff_id = $id ";
+                    mysqli_query($conn, $update);
+                    $update = "UPDATE staff_address SET staff_province='$province' WHERE staff_id = $id ";
+                    mysqli_query($conn, $update);
+                    $update = "UPDATE staff_address SET staff_postal_code='$postalcode' WHERE staff_id = $id ";
+                    mysqli_query($conn, $update);
+                    $_SESSION['success'] ='อัพเดท address สำเร็จ';
+                    header("Loacation: edit_staff.php");
+                
+            }else{
+                $insert = "INSERT INTO staff_address( staff_id , staff_address_line1, staff_address_line2, staff_city, staff_province, staff_postal_code) VALUES ('$id','$address1','$address2','$city','$province','$postalcode')";
+                $result = mysqli_query($conn, $insert);
+                if ($address2 == "") {
+                    $query = "UPDATE staff_address SET address2 = NULL WHERE staff_id = $id";
+                    mysqli_query($conn, $query);
+                    $_SESSION['success'] = "เพิ่ม address สำเร็จ";
+                    header("Loacation: edit_staff.php");
+                } else {
+                    $_SESSION['success'] ='เพิ่ม address สำเร็จ';
+                    header("Loacation: edit_staff.php");
+                }    
+                
+            }
+        }else {
+            $_SESSION['error'] ='กรอกข้อมูลไม่ครบ';
+            header("Loacation: edit_staff.php");
+        }    
+        
+    }
 ?>
 
 <!DOCTYPE html>
@@ -64,6 +135,32 @@
 
 </head>
 <body>
+    <!-- error pop-up -->
+    <?php if(isset($_SESSION['error'])) { ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?php
+                echo $_SESSION['error'];
+                unset ($_SESSION['error']);
+            ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php  } ?>
+
+    <!-- success pop-up -->
+    <?php if(isset($_SESSION['success'])) { ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?php
+                echo $_SESSION['success'];
+                unset ($_SESSION['success']);
+            ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php  } ?>
+
 
     <?php
 
@@ -134,31 +231,31 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>First Name</label>
-                                            <input type="text" class="form-control" name="staff_firstname" value="<?php $row['staff_firstname']; ?>">
+                                            <input type="text" class="form-control" placeholder="<?php echo $row['staff_firstname']; ?>" name="staff_firstname" value="<?php $row['staff_firstname']; ?>" >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Last Name</label>
-                                            <input type="text" class="form-control" name="staff_lastname" value="<?php $row['staff_lastname']; ?>">
+                                            <input type="text" class="form-control" placeholder="<?php echo $row['staff_lastname']; ?>" name="staff_lastname" value="<?php $row['staff_lastname']; ?>" >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Tel.</label>
-                                            <input type="text" class="form-control" name="staff_tel" value="<?php $row['staff_tel']; ?>">
+                                            <input type="text" class="form-control" placeholder="<?php echo $row['staff_tel']; ?>" name="staff_tel" value="<?php $row['staff_tel']; ?>" >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Vehicle ID</label>
-                                            <input type="text" class="form-control" name="vehicle_id" value="<?php $row['vehicle_id']; ?>">
+                                            <input type="text" class="form-control" placeholder="<?php echo $row['vehicle_id']; ?>" name="vehicle_id" value="<?php $row['vehicle_id']; ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Date of Birth</label>
-                                            <input type="date" class="form-control" name="staff_DOB" value="<?php $row['staff_DOB']; ?>">
+                                            <input type="date" class="form-control" name="staff_DOB" value="<?php echo $row['staff_DOB']; ?>" >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -168,18 +265,12 @@
                                                 <label for="gender">Gender:</label>
                                                 <br>
                                                 <select id="gender" name="staff_gender">
-                                                    <option value="M">Male</option>
-                                                    <option value="F">Female</option>
+                                                    <option value="M" <?php echo ($row['staff_gender'] === 'M') ? 'selected' : ''; ?>>Male</option>
+                                                    <option value="F" <?php echo ($row['staff_gender'] === 'F') ? 'selected' : ''; ?>>Female</option>
                                                 </select>
                                             </form>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Bio</label>
-                                            <textarea class="form-control" rows="4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore vero enim error similique quia numquam ullam corporis officia odio repellendus aperiam consequatur laudantium porro voluptatibus, itaque laboriosam veritatis voluptatum distinctio!</textarea>
-                                        </div>
-                                    </div> -->
                                 </div>
                                 <div>
                                     <a href="staff.php"><button type="submit" class="btn btn-primary w-25" name="update_staff">Update</button></a>
@@ -193,7 +284,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Old password</label>
-                                            <input type="password" class="form-control">
+                                            <input name="old-password" type="password" class="form-control"  id="password">
                                         </div>
                                     </div>
                                 </div>
@@ -201,13 +292,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>New password</label>
-                                            <input type="password" class="form-control">
+                                            <input name="new-password" type="password" class="form-control"  id="new-password">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Confirm new password</label>
-                                            <input type="password" class="form-control">
+                                            <input name="confirm-password" type="password" class="form-control"  id="confirm-password" >
                                         </div>
                                     </div>
                                 </div>
@@ -223,31 +314,31 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Address1</label>
-                                            <input type="text" class="form-control">
+                                            <input name="address1" id="address1" type="text" class="form-control" >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Address2</label>
-                                            <input type="text" class="form-control">
+                                            <input name="address2" id="address2" type="text" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>City</label>
-                                            <input type="text" class="form-control">
+                                            <input name="city" id="city" type="text" class="form-control" >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Province</label>
-                                            <input type="text" class="form-control">
+                                            <input name="province" id="province"  type="text" class="form-control" >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Postal Code</label>
-                                            <input type="text" class="form-control">
+                                            <input name="postal-code" id="postal-code" type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>

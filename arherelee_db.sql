@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2023 at 08:44 PM
+-- Generation Time: May 28, 2023 at 03:25 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -170,7 +170,8 @@ INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `price`, `im
 (3, 'CG005', 'water', 12, 'Screenshot 2023-03-26 135810.png'),
 (4, 'CG001', 'กะเพรา', 22, 'Screenshot 2023-03-24 205452.png'),
 (5, 'CG002', 'กะเพรา', 144, 'Screenshot 2023-03-26 145805.png'),
-(12, 'CG001', 'กาหรี่่', 60, 'กะหรี่ปั๊บคุณเชอร์รี่-กินอะไรดีเชียงใหม่2.jpg');
+(12, 'CG001', 'กาหรี่่', 60, 'กะหรี่ปั๊บคุณเชอร์รี่-กินอะไรดีเชียงใหม่2.jpg'),
+(14, 'CG002', 'กาหรี่่', 10, 'กะหรี่ปั๊บคุณเชอร์รี่-กินอะไรดีเชียงใหม่2.jpg');
 
 -- --------------------------------------------------------
 
@@ -193,7 +194,7 @@ INSERT INTO `promotion` (`promotion_id`, `expire_date`, `discount`, `minimum_cos
 ('D00001', '2023-05-04 00:00:00', 30, 250),
 ('D00002', '2024-01-01 00:00:00', 30, 100),
 ('D00003', '2023-05-31 00:00:00', 50, 200),
-('D00005', '2023-06-21 00:00:00', 50, 250);
+('D01', '2023-05-02 00:00:00', 10, 60);
 
 -- --------------------------------------------------------
 
@@ -203,17 +204,37 @@ INSERT INTO `promotion` (`promotion_id`, `expire_date`, `discount`, `minimum_cos
 
 CREATE TABLE `seat_reserve` (
   `reserve_id` int(11) NOT NULL,
-  `seat_id` varchar(4) NOT NULL,
-  `seat_type_id` varchar(2) NOT NULL
+  `table_name` varchar(3) NOT NULL,
+  `table_status` int(1) NOT NULL COMMENT '0=ว่าง,1=จอง',
+  `seat_type_id` varchar(2) NOT NULL,
+  `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `seat_reserve`
 --
 
-INSERT INTO `seat_reserve` (`reserve_id`, `seat_id`, `seat_type_id`) VALUES
-(3, '1', 'SM'),
-(4, '2', 'SL');
+INSERT INTO `seat_reserve` (`reserve_id`, `table_name`, `table_status`, `seat_type_id`, `user_id`) VALUES
+(1, 'A01', 0, 'SS', NULL),
+(2, 'A02', 0, 'SS', NULL),
+(3, 'A03', 0, 'SS', NULL),
+(4, 'A04', 0, 'SS', NULL),
+(5, 'A05', 0, 'SS', NULL),
+(6, 'B01', 0, 'SM', NULL),
+(7, 'B02', 0, 'SM', NULL),
+(8, 'B03', 0, 'SM', NULL),
+(9, 'B04', 0, 'SM', NULL),
+(10, 'B05', 0, 'SM', NULL),
+(11, 'C01', 1, 'SL', NULL),
+(12, 'C02', 1, 'SL', NULL),
+(13, 'C03', 1, 'SL', NULL),
+(14, 'C04', 1, 'SL', NULL),
+(15, 'C05', 0, 'SL', NULL),
+(16, 'D01', 0, 'SS', NULL),
+(17, 'D02', 0, 'SS', NULL),
+(18, 'D03', 0, 'SM', NULL),
+(19, 'D04', 0, 'SM', NULL),
+(20, 'D05', 0, 'SL', NULL);
 
 -- --------------------------------------------------------
 
@@ -223,17 +244,18 @@ INSERT INTO `seat_reserve` (`reserve_id`, `seat_id`, `seat_type_id`) VALUES
 
 CREATE TABLE `seat_type` (
   `seat_type_id` varchar(2) NOT NULL,
-  `seat_type_name` text NOT NULL
+  `sizetable` varchar(10) NOT NULL,
+  `sizevalue` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `seat_type`
 --
 
-INSERT INTO `seat_type` (`seat_type_id`, `seat_type_name`) VALUES
-('SL', 'Large'),
-('SM', 'Medium'),
-('SS', 'Small');
+INSERT INTO `seat_type` (`seat_type_id`, `sizetable`, `sizevalue`) VALUES
+('SL', 'Large', 8),
+('SM', 'Medium', 4),
+('SS', 'Small', 2);
 
 -- --------------------------------------------------------
 
@@ -245,11 +267,18 @@ CREATE TABLE `staff_address` (
   `staff_address_id` int(8) NOT NULL,
   `staff_id` int(7) NOT NULL,
   `staff_address_line1` text NOT NULL,
-  `staff_address_line2` text NOT NULL,
+  `staff_address_line2` text DEFAULT NULL,
   `staff_city` text NOT NULL,
   `staff_province` text NOT NULL,
   `staff_postal_code` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `staff_address`
+--
+
+INSERT INTO `staff_address` (`staff_address_id`, `staff_id`, `staff_address_line1`, `staff_address_line2`, `staff_city`, `staff_province`, `staff_postal_code`) VALUES
+(1, 1, '31/199', '', '-', 'Bangkok', '10140');
 
 -- --------------------------------------------------------
 
@@ -275,7 +304,7 @@ CREATE TABLE `staff_info` (
 --
 
 INSERT INTO `staff_info` (`staff_id`, `staff_firstname`, `staff_lastname`, `staff_tel`, `staff_DOB`, `staff_email`, `staff_password`, `staff_gender`, `vehicle_id`, `position_id`) VALUES
-(1, 'Noppakorn', 'Sorndech', '0945128589', '2001-02-05', 'man.noppakorn@gmail.com', '248655', 'M', NULL, 'PST01'),
+(1, 'MAN', 'Noppakorn', '0945128589', '2001-03-15', 'man.noppakorn@gmail.com', '248655', 'M', NULL, 'PST01'),
 (2, 'treerut', 'phonwijit', '0882952668', '2023-05-03', 'treerut@email.com', '123456', 'M', NULL, 'PST02'),
 (18, 'MAN', 'Noppakorn', '0818264902', '2023-05-03', 'man_noppakorn@hotmail.com', '159357', 'M', 'กก 444', 'PST03');
 
@@ -335,7 +364,6 @@ INSERT INTO `user` (`user_id`, `user_firstname`, `user_lastname`, `user_tel`, `u
 CREATE TABLE `user_action` (
   `action_id` int(6) NOT NULL,
   `order_id` int(11) NOT NULL,
-  `reserve_id` int(11) DEFAULT NULL,
   `promotion_id` varchar(7) DEFAULT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -425,7 +453,8 @@ ALTER TABLE `promotion`
 --
 ALTER TABLE `seat_reserve`
   ADD PRIMARY KEY (`reserve_id`),
-  ADD KEY `seat_type_id` (`seat_type_id`);
+  ADD KEY `seat_type_id` (`seat_type_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `seat_type`
@@ -467,8 +496,7 @@ ALTER TABLE `user`
 --
 ALTER TABLE `user_action`
   ADD PRIMARY KEY (`action_id`),
-  ADD KEY `order_id` (`order_id`,`reserve_id`,`user_id`),
-  ADD KEY `reserve_id` (`reserve_id`),
+  ADD KEY `order_id` (`order_id`,`user_id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `promotion_id` (`promotion_id`);
 
@@ -493,19 +521,19 @@ ALTER TABLE `billing`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `product_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `seat_reserve`
 --
 ALTER TABLE `seat_reserve`
-  MODIFY `reserve_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `reserve_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `staff_address`
 --
 ALTER TABLE `staff_address`
-  MODIFY `staff_address_id` int(8) NOT NULL AUTO_INCREMENT;
+  MODIFY `staff_address_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `staff_info`
@@ -566,7 +594,8 @@ ALTER TABLE `product`
 -- Constraints for table `seat_reserve`
 --
 ALTER TABLE `seat_reserve`
-  ADD CONSTRAINT `seat_reserve_ibfk_1` FOREIGN KEY (`seat_type_id`) REFERENCES `seat_type` (`seat_type_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `seat_reserve_ibfk_1` FOREIGN KEY (`seat_type_id`) REFERENCES `seat_type` (`seat_type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `seat_reserve_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `staff_address`
@@ -591,7 +620,6 @@ ALTER TABLE `user`
 --
 ALTER TABLE `user_action`
   ADD CONSTRAINT `user_action_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `billing` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_action_ibfk_2` FOREIGN KEY (`reserve_id`) REFERENCES `seat_reserve` (`reserve_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_action_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_action_ibfk_4` FOREIGN KEY (`promotion_id`) REFERENCES `promotion` (`promotion_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
