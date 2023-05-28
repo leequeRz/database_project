@@ -632,11 +632,6 @@ main .recent-orders a.button-delete:hover {
     width: 280px;
 }
 
-main div .open-button {
-    margin-left: 50px;
-    margin-top: 50px;
-}
-
   select::-ms-expand {
     display: none;
     }

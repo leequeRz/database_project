@@ -75,6 +75,10 @@
                     <i class="ri-add-line"></i>
                     <h3>Add Product</h3>
                 </a>
+                <a href="edit_staff.php?edit=<?php echo $_SESSION['staff_login']; ?>">
+                    <i class="ri-settings-5-fill"></i>
+                    <h3>Setting</h3>
+                </a>
                 <a href="logout.php">
                     <i class="ri-logout-box-r-line"></i>
                     <h3>Logout</h3>

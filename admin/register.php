@@ -17,29 +17,32 @@
 <body>
     <form name="inpfrm" method="post" action="register_to.php">
     <?php if(isset($_SESSION['error'])) { ?>
-    <div class="alert alert-danger"  role="alert">
+        <div class="alert alert-danger"  role="alert">
             <?php
                 echo $_SESSION['error'];
                 unset ($_SESSION['error']);
             ?>
-    </div>
+        </div>
     <?php  } ?>
+
     <?php if(isset($_SESSION['success'])) { ?>
-    <div class="alert alert-success"  role="alert">
+        <div class="alert alert-success"  role="alert">
             <?php
                 echo $_SESSION['success'];
                 unset ($_SESSION['success']);
             ?>
-    </div>
+        </div>
     <?php  } ?>
+    
     <?php if(isset($_SESSION['warning'])) { ?>
-    <div class="alert alert-warning"  role="alert">
+        <div class="alert alert-warning"  role="alert">
             <?php
                 echo $_SESSION['warning'];
                 unset ($_SESSION['warning']);
             ?>
-    </div>
+        </div>
     <?php  } ?>
+
     <div class="wrapper">
         <div class="container main">
             <div class="row">
