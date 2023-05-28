@@ -25,7 +25,7 @@
 
         if($result) {
             move_uploaded_file($product_image_tmp_name, $product_image_folder);
-            header("Loacation: product.php");
+            header("Loacation: edit_product.php");
         }
         else {
             echo "Failed: " . mysqli_error($conn);
@@ -134,18 +134,28 @@
                     <br>
 
                     <label for="name"><h2>Product Name</h2></label>
-                    <input type="text" placeholder="<?php $row['product_name']; ?>" value="<?php $row['product_name']; ?>" name="product_name" required>
+                    <input type="text" placeholder="<?php echo $row['product_name']; ?>" value="<?php $row['product_name']; ?>" name="product_name" required>
                     <div>
                         <h2>Category</h2>
                         <label class="selectdiv" name="product_category">
-                            <select id="product_category" value="<?php $row['category_id']; ?>" name="product_category" required>
-                                <option value="CG001">Fast food</option>
-                                <option value="CG002">Thai food</option>
-                                <option value="CG003">Chinese food</option>
-                                <option value="CG004">Dessert</option>
-                                <option value="CG005">Drink</option>
+                            <select id="product_category" name="product_category" required>
+                                <?php
+                                $categoryOptions = array(
+                                    "CG001" => "Fast food",
+                                    "CG002" => "Thai food",
+                                    "CG003" => "Chinese food",
+                                    "CG004" => "Dessert",
+                                    "CG005" => "Drink"
+                                );
+
+                                foreach ($categoryOptions as $value => $label) {
+                                    $selected = ($row['category_id'] === $value) ? "selected" : "";
+                                    echo '<option value="' . $value . '" ' . $selected . '>' . $label . '</option>';
+                                }
+                                ?>
                             </select>
                         </label>
+
                     </div> 
                     
                     <br>
@@ -154,12 +164,24 @@
                     <br>
                     
                     <label for="price"><h2>Price</h2></label>
-                    <input type="number" placeholder="Enter Price" value="<?php $row['price']; ?>" name="product_price" required>
+                    <input type="number" placeholder="<?php echo $row['price']; ?>" value="<?php $row['price']; ?>" name="product_price" required>
                     
                     <br>
                     
                     <label for="image"><h2>Image</h2></label>
                     <input type="file" accept="image/png, image/jpeg, image/jpg" value="<?php $row['image']; ?>" name="product_image" required>
+
+                    <br>
+                    
+                    <?php
+                        $imagePath = '../image/' . $row['image'];
+                        if (!empty($row['image']) && file_exists($imagePath)) {
+                            echo '<img src="' . $imagePath . '">';
+                        }
+                    ?>
+
+                    <br>
+                    <br>
 
                     <a href="product.php"><button type="submit" class="btn" name="update_product">Update</button></a>
                     <a href="product.php"><button type="button" class="btn cancel" name="cancel">Cancel</button></a>

@@ -134,31 +134,31 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>First Name</label>
-                                            <input type="text" class="form-control" name="staff_firstname" value="<?php $row['staff_firstname']; ?>">
+                                            <input type="text" class="form-control" placeholder="<?php echo $row['staff_firstname']; ?>" name="staff_firstname" value="<?php $row['staff_firstname']; ?>" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Last Name</label>
-                                            <input type="text" class="form-control" name="staff_lastname" value="<?php $row['staff_lastname']; ?>">
+                                            <input type="text" class="form-control" placeholder="<?php echo $row['staff_lastname']; ?>" name="staff_lastname" value="<?php $row['staff_lastname']; ?>" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Tel.</label>
-                                            <input type="text" class="form-control" name="staff_tel" value="<?php $row['staff_tel']; ?>">
+                                            <input type="text" class="form-control" placeholder="<?php echo $row['staff_tel']; ?>" name="staff_tel" value="<?php $row['staff_tel']; ?>" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Vehicle ID</label>
-                                            <input type="text" class="form-control" name="vehicle_id" value="<?php $row['vehicle_id']; ?>">
+                                            <input type="text" class="form-control" placeholder="<?php echo $row['vehicle_id']; ?>" name="vehicle_id" value="<?php $row['vehicle_id']; ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Date of Birth</label>
-                                            <input type="date" class="form-control" name="staff_DOB" value="<?php $row['staff_DOB']; ?>">
+                                            <input type="date" class="form-control" name="staff_DOB" value="<?php echo $row['staff_DOB']; ?>" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -168,8 +168,8 @@
                                                 <label for="gender">Gender:</label>
                                                 <br>
                                                 <select id="gender" name="staff_gender">
-                                                    <option value="M">Male</option>
-                                                    <option value="F">Female</option>
+                                                    <option value="M" <?php echo ($row['staff_gender'] === 'M') ? 'selected' : ''; ?>>Male</option>
+                                                    <option value="F" <?php echo ($row['staff_gender'] === 'F') ? 'selected' : ''; ?>>Female</option>
                                                 </select>
                                             </form>
                                         </div>
