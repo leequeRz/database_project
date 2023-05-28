@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2023 at 03:25 PM
+-- Generation Time: May 28, 2023 at 06:17 PM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 8.0.25
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -296,17 +296,18 @@ CREATE TABLE `staff_info` (
   `staff_password` varchar(255) NOT NULL,
   `staff_gender` enum('M','F') NOT NULL,
   `vehicle_id` varchar(7) DEFAULT NULL,
-  `position_id` varchar(5) NOT NULL
+  `position_id` varchar(5) NOT NULL,
+  `staff_image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `staff_info`
 --
 
-INSERT INTO `staff_info` (`staff_id`, `staff_firstname`, `staff_lastname`, `staff_tel`, `staff_DOB`, `staff_email`, `staff_password`, `staff_gender`, `vehicle_id`, `position_id`) VALUES
-(1, 'MAN', 'Noppakorn', '0945128589', '2001-03-15', 'man.noppakorn@gmail.com', '248655', 'M', NULL, 'PST01'),
-(2, 'treerut', 'phonwijit', '0882952668', '2023-05-03', 'treerut@email.com', '123456', 'M', NULL, 'PST02'),
-(18, 'MAN', 'Noppakorn', '0818264902', '2023-05-03', 'man_noppakorn@hotmail.com', '159357', 'M', 'กก 444', 'PST03');
+INSERT INTO `staff_info` (`staff_id`, `staff_firstname`, `staff_lastname`, `staff_tel`, `staff_DOB`, `staff_email`, `staff_password`, `staff_gender`, `vehicle_id`, `position_id`, `staff_image`) VALUES
+(1, 'MAN', 'Noppakorn', '0945128589', '2001-03-15', 'man.noppakorn@gmail.com', '248655', 'M', NULL, 'PST01', NULL),
+(2, 'Teerut', 'Phonwijit', '0882952668', '2023-05-03', 'teerut@email.com', '123123', 'M', NULL, 'PST02', NULL),
+(18, 'MAN', 'Noppakorn', '0818264902', '2023-05-03', 'man_noppakorn@hotmail.com', '159357', 'M', 'กก 444', 'PST03', NULL);
 
 -- --------------------------------------------------------
 

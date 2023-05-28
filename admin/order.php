@@ -164,7 +164,7 @@
                     <small class="text-muted"><?php echo $row['position_name']?></small>
                     </div>
                     <div class="profile-photo">
-                        <img src="../image/profile.jpg">
+                        <img src="../image/default-profile.jpg">
                     </div>
                 </div>
             </div>
