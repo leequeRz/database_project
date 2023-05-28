@@ -66,7 +66,7 @@
                     <span class="material-symbols-outlined">chair</span>
                     <h3>Seat</h3>
                 </a>
-                <a href="setting.php">
+                <a href="edit_staff.php">
                     <i class="ri-settings-5-fill"></i>
                     <h3>Setting</h3>
                 </a>
@@ -131,7 +131,7 @@
                                 <td><?php echo $row['staff_DOB']; ?></td>
                                 <td><?php echo $row['staff_gender']; ?></td>
                                 <td><?php echo $row['vehicle_id']; ?></td>
-                                <td><a href="#" class="button-edit">Edit</a></td>
+                                <td><a href="edit_staff.php?edit=<?php echo $row['staff_id']; ?>" class="button-edit">Edit</a></td>
                                 <td><a href="staff.php?delete=<?php echo $row['staff_id']; ?>" class="button-delete">Delete</a></td>
                             </tr>
 

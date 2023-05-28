@@ -66,7 +66,7 @@
                     <span class="material-symbols-outlined">chair</span>
                     <h3>Seat</h3>
                 </a>
-                <a href="setting.php">
+                <a href="edit_staff.php">
                     <i class="ri-settings-5-fill"></i>
                     <h3>Setting</h3>
                 </a>
@@ -128,13 +128,11 @@
 
                         <?php }; ?>
                     </tbody>
-                    <!-- Open Form button -->
-                    <div>
-                        <a href="add_promotion.php"><button class="open-button">Add Promotion</button></a>
-                    </div>
-                </table>
-
-                
+                </table>  
+                <!-- Open Form button -->
+                <div class="open-button">
+                    <a href="add_promotion.php">Add Promotion</a>
+                </div> 
             </div>
         </main>
 

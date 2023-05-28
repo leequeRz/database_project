@@ -66,7 +66,7 @@
                     <span class="material-symbols-outlined">chair</span>
                     <h3>Seat</h3>
                 </a>
-                <a href="setting.php">
+                <a href="edit_staff.php">
                     <i class="ri-settings-5-fill"></i>
                     <h3>Setting</h3>
                 </a>
@@ -131,7 +131,6 @@
                                 <td><?php echo $row['user_DOB']; ?></td>
                                 <td><?php echo $row['user_gender']; ?></td>
                                 <td><?php echo $row['card_number']; ?></td>
-                                <td><a href="#" class="button-edit">Edit</a></td>
                                 <td><a href="customer.php?delete=<?php echo $row['user_id']; ?>" class="button-delete">Delete</a></td>
                             </tr>
 

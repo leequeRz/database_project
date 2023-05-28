@@ -628,13 +628,13 @@ main .recent-orders a.button-delete:hover {
     border: none;
     cursor: pointer;
     opacity: 1;
-    position: fixed;
+    position: relative;
     width: 280px;
 }
 
 main div .open-button {
-    margin-left: 330px;
-    margin-top: 400px;
+    margin-left: 50px;
+    margin-top: 50px;
 }
 
   select::-ms-expand {

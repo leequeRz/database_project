@@ -108,7 +108,7 @@
                     <span class="material-symbols-outlined">chair</span>
                     <h3>Seat</h3>
                 </a>
-                <a href="setting.php">
+                <a href="edit_staff.php">
                     <i class="ri-settings-5-fill"></i>
                     <h3>Setting</h3>
                 </a>
