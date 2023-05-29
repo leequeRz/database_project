@@ -245,10 +245,24 @@
                             <tr>
                                 <td><?php echo $row['order_id']; ?></td>
                                 <td><?php echo $row['total_price']; ?></td>
-                                <td class="primary"><?php echo $row['payment_type']; ?></td>
-                                <td class="success"><?php echo $row['order_type_name']; ?></td>
+                                <?php 
+                                    if ($row['payment_type'] == 'CARD') {
+                                        echo '<td class="primary">' . $row['payment_type'] . '</td>';
+                                    } else {
+                                        echo '<td class="warning">' . $row['payment_type'] . '</td>';
+                                    }
+                                ?>
+                                <!-- <td class="primary"><?php echo $row['payment_type']; ?></td> -->
+                                <?php 
+                                    if ($row['order_type_name'] == 'ONLINE') {
+                                        echo '<td class="success">' . $row['order_type_name'] . '</td>';
+                                    } else {
+                                        echo '<td class="danger">' . $row['order_type_name'] . '</td>';
+                                    }
+                                ?>
+                                <!-- <td class="success"><?php echo $row['order_type_name']; ?></td> -->
                                 <td><?php echo $row['staff_firstname']; ?></td>
-                                <td><a href="#" class="button-detail">Details</a></td>
+                                <!-- <td><a href="#" class="button-detail">Details</a></td> -->
                                 <td><a href="order.php?delete=<?php echo $row['order_id']; ?>" class="button-delete">Delete</a></td>
                             </tr>
 
@@ -287,6 +301,23 @@
                     </div>
                 </div>
             </div>
+            <!-- Sales analytics -->
+            <!-- <div class="sales-analytics">
+                <h2>Sales Analytics</h2>
+                <div class="item-online">
+                    <div class="icon">
+                        <i class="ri-shopping-cart-2-line"></i>
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3>ONLINE ORDERS</h3>
+                            <small class="text-muted">Last 24 Hours</small>
+                        </div>
+                        <h5 class="success">+39%</h5>
+                        
+                    </div>
+                </div>
+            </div> -->
         </div>
     </div>
 

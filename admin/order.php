@@ -125,10 +125,24 @@
                             <tr>
                                 <td><?php echo $row['order_id']; ?></td>
                                 <td><?php echo $row['total_price']; ?></td>
-                                <td class="primary"><?php echo $row['payment_type']; ?></td>
-                                <td class="success"><?php echo $row['order_type_name']; ?></td>
+                                <?php 
+                                    if ($row['payment_type'] == 'CARD') {
+                                        echo '<td class="primary">' . $row['payment_type'] . '</td>';
+                                    } else {
+                                        echo '<td class="warning">' . $row['payment_type'] . '</td>';
+                                    }
+                                ?>
+                                <!-- <td class="primary"><?php echo $row['payment_type']; ?></td> -->
+                                <?php 
+                                    if ($row['order_type_name'] == 'ONLINE') {
+                                        echo '<td class="success">' . $row['order_type_name'] . '</td>';
+                                    } else {
+                                        echo '<td class="danger">' . $row['order_type_name'] . '</td>';
+                                    }
+                                ?>
+                                <!-- <td class="success"><?php echo $row['order_type_name']; ?></td> -->
                                 <td><?php echo $row['staff_firstname']; ?></td>
-                                <td><a href="#" class="button-detail">Details</a></td>
+                                <!-- <td><a href="#" class="button-detail">Details</a></td> -->
                                 <td><a href="order.php?delete=<?php echo $row['order_id']; ?>" class="button-delete">Delete</a></td>
                             </tr>
 
