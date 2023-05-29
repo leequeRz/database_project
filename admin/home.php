@@ -29,7 +29,7 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="../image/main-logo.png">
+                    <img src="../img/main-logo.png">
                     <h2>ARHERELEE</h2>
                 </div>
 
@@ -101,17 +101,37 @@
                         <div class="left">
                             <h3>Total Sales</h3>
                             <!-- query ข้อมูลยอดขาย -->
-                            <h1>$25,023</h1>
+                            <?php
+                                $sql = "SELECT SUM(total_price) AS total_sum FROM billing";
+                                $result = mysqli_query($conn, $sql);
+
+                                if ($result) {
+                                    $fetch = mysqli_fetch_assoc($result);
+                                    if ($fetch && isset($fetch['total_sum'])) {
+                                        $orderprice = $fetch['total_sum'];
+                                        if ($orderprice > 999) {
+                                            $orderprice = number_format($orderprice);
+                                        }
+                                    } else {
+                                        $orderprice = 0; // Set a default value if the query doesn't return valid data
+                                    }
+                                } else {
+                                    $orderprice = 0; // Set a default value if the query fails
+                                }
+                                ?>
+                            <h1><?php echo $orderprice; ?></h1>
+
+                            <!-- <h1>$21,023</h1> -->
                         </div>
 
-                        <div class="progress">
+                        <!-- <div class="progress">
                             <svg>
                                 <circle cx="38" cy="38" r="36"></circle>
                             </svg>
                             <div class="number">
                                 <p>81%</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <small class="text-muted">Last 24 Hours</small>
                 </div>
@@ -121,18 +141,34 @@
                     <div class="middle">
                         <div class="left">
                             <h3>Total Orders</h3>
-                            <!-- query ข้อมูลจำนวน order -->
-                            <h1>3,157</h1>
+                            <?php
+                            $sql = "SELECT COUNT(*) as totalorders FROM billing";
+                            $result = mysqli_query($conn, $sql);
+                            
+                            if ($result) {
+                                $fetch = mysqli_fetch_assoc($result);
+                                if ($fetch && isset($fetch['totalorders'])) {
+                                    $orderCount = $fetch['totalorders'];
+                                    
+                                } else {
+                                    $orderCount = 0; // Set a default value if the query doesn't return valid data
+                                }
+                            } else 
+                                $orderCount = 0; // Set a default value if the query fails
+                            
+                            ?>
+                            <h1><?php echo $orderCount; ?></h1>    
+                            <!-- <h1>3,157</h1> -->
                         </div>
 
-                        <div class="progress">
+                        <!-- <div class="progress">
                             <svg>
                                 <circle cx="38" cy="38" r="36"></circle>
                             </svg>
                             <div class="number">
                                 <p>62%</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <small class="text-muted">Last 24 Hours</small>
                 </div>
@@ -140,22 +176,40 @@
                 <div class="members">
                     <i class="ri-user-3-line"></i>
                     <div class="middle">
-                        <div class="left">
-                            <h3>Total Customers</h3>
-                            <!-- query ข้อมูลจำนวน user -->
-                            <h1>10,238</h1>
-                        </div>
+                    <div class="left">
+                        <h3>Total Customers</h3>
+                        <?php
+                            $sql = "SELECT COUNT(*) as users FROM user";
+                            $result = mysqli_query($conn, $sql);
+                            
+                            if ($result) {
+                                $fetch = mysqli_fetch_assoc($result);
+                                if ($fetch && isset($fetch['users'])) {
+                                    $userCount = $fetch['users'];
+                                    if ($userCount > 999) {
+                                        $userCount = number_format($userCount);
+                                } else {
+                                    $userCount = 0; // Set a default value if the query doesn't return valid data
+                                }
+                            } else 
+                                $userCount = 0; // Set a default value if the query fails
+                            }
+                        ?>
+                        <h1><?php echo $userCount; ?></h1>                           
+                    </div>
+
 
                         <div class="progress">
-                            <svg>
+                            
+                            <!-- <svg>
                                 <circle cx="38" cy="38" r="36"></circle>
                             </svg>
                             <div class="number">
                                 <p>44%</p>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
-                    <small class="text-muted">Last 24 Hours</small>
+                    <small class="text-muted">Last 1 Month</small>
                 </div>
             </div>
 
@@ -169,7 +223,6 @@
                             <th>Total Price</th>
                             <th>Payment</th>
                             <th>Order Type</th>
-                            <th>Time</th>
                             <th>Recipient</th>
                             <th></th>
                         </tr>
@@ -192,11 +245,24 @@
                             <tr>
                                 <td><?php echo $row['order_id']; ?></td>
                                 <td><?php echo $row['total_price']; ?></td>
-                                <td class="primary"><?php echo $row['payment_type']; ?></td>
-                                <td class="success"><?php echo $row['order_type_name']; ?></td>
-                                <td><?php echo $row['order_date']; ?></td>
+                                <?php 
+                                    if ($row['payment_type'] == 'CARD') {
+                                        echo '<td class="primary">' . $row['payment_type'] . '</td>';
+                                    } else {
+                                        echo '<td class="warning">' . $row['payment_type'] . '</td>';
+                                    }
+                                ?>
+                                <!-- <td class="primary"><?php echo $row['payment_type']; ?></td> -->
+                                <?php 
+                                    if ($row['order_type_name'] == 'ONLINE') {
+                                        echo '<td class="success">' . $row['order_type_name'] . '</td>';
+                                    } else {
+                                        echo '<td class="danger">' . $row['order_type_name'] . '</td>';
+                                    }
+                                ?>
+                                <!-- <td class="success"><?php echo $row['order_type_name']; ?></td> -->
                                 <td><?php echo $row['staff_firstname']; ?></td>
-                                <td><a href="#" class="button-detail">Details</a></td>
+                                <!-- <td><a href="#" class="button-detail">Details</a></td> -->
                                 <td><a href="order.php?delete=<?php echo $row['order_id']; ?>" class="button-delete">Delete</a></td>
                             </tr>
 
@@ -231,10 +297,27 @@
                     <small class="text-muted"><?php echo $row['position_name']?></small>
                 </div>
                     <div class="profile-photo">
-                        <img src="../image/default-profile.jpg">
+                        <img src="../img/default-profile.jpg">
                     </div>
                 </div>
             </div>
+            <!-- Sales analytics -->
+            <!-- <div class="sales-analytics">
+                <h2>Sales Analytics</h2>
+                <div class="item-online">
+                    <div class="icon">
+                        <i class="ri-shopping-cart-2-line"></i>
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3>ONLINE ORDERS</h3>
+                            <small class="text-muted">Last 24 Hours</small>
+                        </div>
+                        <h5 class="success">+39%</h5>
+                        
+                    </div>
+                </div>
+            </div> -->
         </div>
     </div>
 

@@ -17,7 +17,7 @@
         $product_price = $_POST['product_price'];
         $product_image = $_FILES['product_image']['name'];
         $product_image_tmp_name = $_FILES['product_image']['tmp_name'];
-        $product_image_folder = '../image/'.$product_image;
+        $product_image_folder = '../img/'.$product_image;
 
         $update = "UPDATE product SET product_name='$product_name', category_id='$product_category', price='$product_price', image='$product_image' WHERE product_id = $id";
 
@@ -55,7 +55,7 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="../image/main-logo.png">
+                    <img src="../img/main-logo.png">
                     <h2>ARHERELEE</h2>
                 </div>
 
@@ -174,7 +174,7 @@
                     <br>
                     
                     <?php
-                        $imagePath = '../image/' . $row['image'];
+                        $imagePath = '../img/' . $row['image'];
                         if (!empty($row['image']) && file_exists($imagePath)) {
                             echo '<img src="' . $imagePath . '">';
                         }
@@ -215,7 +215,7 @@
                     <small class="text-muted"><?php echo $row['position_name']?></small>
                     </div>
                     <div class="profile-photo">
-                        <img src="../image/default-profile.jpg">
+                        <img src="../img/default-profile.jpg">
                     </div>
                 </div>
             </div>

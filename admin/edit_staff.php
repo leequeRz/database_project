@@ -12,9 +12,9 @@
 
     // if(isset($_POST['submit'])) {
 
-    //     $staff_image = $_FILES['staff_image']['name'];
-    //     $staff_image_tmp_name = $_FILES['staff_image']['tmp_name'];
-    //     $staff_image_folder = '../image/'.$staff_image;
+        $staff_image = $_FILES['staff_image']['name'];
+        $staff_image_tmp_name = $_FILES['staff_image']['tmp_name'];
+        $staff_image_folder = '../img/'.$staff_image;
 
     //     $update = "UPDATE product SET image='$staff_image' WHERE staff_id = $id";
 
@@ -200,16 +200,8 @@
                             <div class="img-circle text-center mb-3">
                                 <!-- query iamge มาใส่ -->
                                 <?php
-                                    // Fetch the image path from the database
-                                    $imagePath = $row['staff_image'];
-
-                                    if (!empty($imagePath)) {
-                                        // Display the existing profile image
-                                        echo '<img src="'.$imagePath.'" class="shadow">';
-                                    } else {
-                                        // Display a default image if no profile image is set
-                                        echo '<img src="../image/default-profile.jpg" class="shadow">';
-                                    }
+                                    // Display a default image if no profile image is set
+                                    echo '<img src="../img/default-profile.jpg" class="shadow">';
                                 ?>
                             </div>
                             <!-- query firstname lastname มาใส่ -->
