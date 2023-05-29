@@ -102,21 +102,25 @@
                             <h3>Total Sales</h3>
                             <!-- query ข้อมูลยอดขาย -->
                             <?php
-                            $sql = "SELECT COUNT(*) as total_price FROM billing";
-                            $result = mysqli_query($conn, $sql);
-                            
-                            if ($result) {
-                                $fetch = mysqli_fetch_assoc($result);
-                                if ($fetch && isset($fetch['total_price'])) {
-                                    $orderprice = $fetch['total_price'];
+                                $sql = "SELECT SUM(total_price) AS total_sum FROM billing";
+                                $result = mysqli_query($conn, $sql);
+
+                                if ($result) {
+                                    $fetch = mysqli_fetch_assoc($result);
+                                    if ($fetch && isset($fetch['total_sum'])) {
+                                        $orderprice = $fetch['total_sum'];
+                                        if ($orderprice > 999) {
+                                            $orderprice = number_format($orderprice);
+                                        }
+                                    } else {
+                                        $orderprice = 0; // Set a default value if the query doesn't return valid data
+                                    }
                                 } else {
-                                    $orderprice = 0; // Set a default value if the query doesn't return valid data
+                                    $orderprice = 0; // Set a default value if the query fails
                                 }
-                            } else {
-                                $orderprice = 0; // Set a default value if the query fails
-                            }
-                            ?>
-                        <h1><?php echo $orderprice; ?></h1>
+                                ?>
+                            <h1><?php echo $orderprice; ?></h1>
+
                             <!-- <h1>$21,023</h1> -->
                         </div>
 
@@ -138,21 +142,22 @@
                         <div class="left">
                             <h3>Total Orders</h3>
                             <?php
-                            $sql = "SELECT COUNT(*) as orders FROM billing";
+                            $sql = "SELECT COUNT(*) as totalorders FROM billing";
                             $result = mysqli_query($conn, $sql);
                             
                             if ($result) {
                                 $fetch = mysqli_fetch_assoc($result);
-                                if ($fetch && isset($fetch['orders'])) {
-                                    $orderCount = $fetch['orders'];
+                                if ($fetch && isset($fetch['totalorders'])) {
+                                    $orderCount = $fetch['totalorders'];
+                                    
                                 } else {
                                     $orderCount = 0; // Set a default value if the query doesn't return valid data
                                 }
-                            } else {
+                            } else 
                                 $orderCount = 0; // Set a default value if the query fails
-                            }
+                            
                             ?>
-                        <h1><?php echo $orderCount; ?></h1>
+                            <h1><?php echo $orderCount; ?></h1>    
                             <!-- <h1>3,157</h1> -->
                         </div>
 
@@ -181,10 +186,12 @@
                                 $fetch = mysqli_fetch_assoc($result);
                                 if ($fetch && isset($fetch['users'])) {
                                     $userCount = $fetch['users'];
+                                    if ($userCount > 999) {
+                                        $userCount = number_format($userCount);
                                 } else {
                                     $userCount = 0; // Set a default value if the query doesn't return valid data
                                 }
-                            } else {
+                            } else 
                                 $userCount = 0; // Set a default value if the query fails
                             }
                         ?>
@@ -202,7 +209,7 @@
                             </div> -->
                         </div>
                     </div>
-                    <small class="text-muted">Last 24 Hours</small>
+                    <small class="text-muted">Last 1 Month</small>
                 </div>
             </div>
 
@@ -216,7 +223,6 @@
                             <th>Total Price</th>
                             <th>Payment</th>
                             <th>Order Type</th>
-                            <th>Time</th>
                             <th>Recipient</th>
                             <th></th>
                         </tr>
@@ -241,7 +247,6 @@
                                 <td><?php echo $row['total_price']; ?></td>
                                 <td class="primary"><?php echo $row['payment_type']; ?></td>
                                 <td class="success"><?php echo $row['order_type_name']; ?></td>
-                                <td><?php echo $row['order_date']; ?></td>
                                 <td><?php echo $row['staff_firstname']; ?></td>
                                 <td><a href="#" class="button-detail">Details</a></td>
                                 <td><a href="order.php?delete=<?php echo $row['order_id']; ?>" class="button-delete">Delete</a></td>

@@ -103,7 +103,6 @@
                             <th>Total Price</th>
                             <th>Payment</th>
                             <th>Order Type</th>
-                            <th>Time</th>
                             <th>Recipient</th>
                             <th></th>
                         </tr>
@@ -128,7 +127,6 @@
                                 <td><?php echo $row['total_price']; ?></td>
                                 <td class="primary"><?php echo $row['payment_type']; ?></td>
                                 <td class="success"><?php echo $row['order_type_name']; ?></td>
-                                <td><?php echo $row['order_date']; ?></td>
                                 <td><?php echo $row['staff_firstname']; ?></td>
                                 <td><a href="#" class="button-detail">Details</a></td>
                                 <td><a href="order.php?delete=<?php echo $row['order_id']; ?>" class="button-delete">Delete</a></td>
