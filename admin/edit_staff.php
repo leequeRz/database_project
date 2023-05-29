@@ -10,30 +10,30 @@
 
     $id = $_GET['edit'];
 
-    if(isset($_POST['submit'])) {
+    // if(isset($_POST['submit'])) {
 
         $staff_image = $_FILES['staff_image']['name'];
         $staff_image_tmp_name = $_FILES['staff_image']['tmp_name'];
         $staff_image_folder = '../img/'.$staff_image;
 
-        $update = "UPDATE product SET image='$staff_image' WHERE staff_id = $id";
+    //     $update = "UPDATE product SET image='$staff_image' WHERE staff_id = $id";
 
-        $result = mysqli_query($conn, $update);
+    //     $result = mysqli_query($conn, $update);
 
-        if($result) {
-            move_uploaded_file($staff_image_tmp_name, $staff_image_folder);
-            $_SESSION['success'] = "update รูปภาพสำเร็จ";
-            header("Loacation: edit_staff.php");
-        }
-        else {
-            $_SESSION['error'] ='ไม่พบข้อมูล';
-            header("Loacation: edit_staff.php");
-        }
-    }
+    //     if($result) {
+    //         move_uploaded_file($staff_image_tmp_name, $staff_image_folder);
+    //         $_SESSION['success'] = "update รูปภาพสำเร็จ";
+    //         header("Loacation: edit_staff.php");
+    //     }
+    //     else {
+    //         $_SESSION['error'] ='ไม่พบข้อมูล';
+    //         header("Loacation: edit_staff.php");
+    //     }
+    // }
 
     if(isset($_POST['update_staff'])) {
 
-        $staff_image = $_POST['staff_firstname'];
+        $staff_firstname = $_POST['staff_firstname'];
         $staff_lastname = $_POST['staff_lastname'];
         $staff_tel = $_POST['staff_tel'];
         $staff_dob = $_POST['staff_DOB'];
