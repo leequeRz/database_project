@@ -101,17 +101,33 @@
                         <div class="left">
                             <h3>Total Sales</h3>
                             <!-- query ข้อมูลยอดขาย -->
-                            <h1>$21,023</h1>
+                            <?php
+                            $sql = "SELECT COUNT(*) as total_price FROM billing";
+                            $result = mysqli_query($conn, $sql);
+                            
+                            if ($result) {
+                                $fetch = mysqli_fetch_assoc($result);
+                                if ($fetch && isset($fetch['total_price'])) {
+                                    $orderprice = $fetch['total_price'];
+                                } else {
+                                    $orderprice = 0; // Set a default value if the query doesn't return valid data
+                                }
+                            } else {
+                                $orderprice = 0; // Set a default value if the query fails
+                            }
+                            ?>
+                        <h1><?php echo $orderprice; ?></h1>
+                            <!-- <h1>$21,023</h1> -->
                         </div>
 
-                        <div class="progress">
+                        <!-- <div class="progress">
                             <svg>
                                 <circle cx="38" cy="38" r="36"></circle>
                             </svg>
                             <div class="number">
                                 <p>81%</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <small class="text-muted">Last 24 Hours</small>
                 </div>
@@ -121,18 +137,33 @@
                     <div class="middle">
                         <div class="left">
                             <h3>Total Orders</h3>
-                            <!-- query ข้อมูลจำนวน order -->
-                            <h1>3,157</h1>
+                            <?php
+                            $sql = "SELECT COUNT(*) as orders FROM billing";
+                            $result = mysqli_query($conn, $sql);
+                            
+                            if ($result) {
+                                $fetch = mysqli_fetch_assoc($result);
+                                if ($fetch && isset($fetch['orders'])) {
+                                    $orderCount = $fetch['orders'];
+                                } else {
+                                    $orderCount = 0; // Set a default value if the query doesn't return valid data
+                                }
+                            } else {
+                                $orderCount = 0; // Set a default value if the query fails
+                            }
+                            ?>
+                        <h1><?php echo $orderCount; ?></h1>
+                            <!-- <h1>3,157</h1> -->
                         </div>
 
-                        <div class="progress">
+                        <!-- <div class="progress">
                             <svg>
                                 <circle cx="38" cy="38" r="36"></circle>
                             </svg>
                             <div class="number">
                                 <p>62%</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <small class="text-muted">Last 24 Hours</small>
                 </div>
