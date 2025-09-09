@@ -12,7 +12,7 @@
     </section>
     
     <div id="loveAj">
-        <a href="/database_project/beforelogin/home.php">Go to Home Page</a>
+        <a href="beforelogin/home.php">Go to Home Page</a>
     </div>
 </body>
 </html>

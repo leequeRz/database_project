@@ -74,7 +74,7 @@
         <section id="hero-banner">
             <div class="slider">
                 <div class="slide active">
-                    <img src="/database_project/img/banner/banner1.png" alt="">
+                    <img src="../img/banner/banner1.png" alt="">
                     <div class="info">
                         <div class="info2">
                             <h2>Welcome to ARHERELEE</h2>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="/database_project/img/banner/banner2.png"
+                    <img src="../img/banner/banner2.png"
                         alt="">
                     <div class="info">
                         <div class="info2">
@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="/database_project/img/banner/banner3.png" alt="">
+                    <img src="../img/banner/banner3.png" alt="">
                     <!-- <div class="info">
                         <div class="info2">
                             <h2>ORDER NOW</h2>
@@ -125,23 +125,23 @@
 
         <section id="feature" class="section-p1">
             <div class="fe-box">
-                <img src="/database_project/img/features/free shipping.png" alt="">
+                <img src="../img/features/free shipping.png" alt="">
                 <h6>Online Shop</h6>
             </div>
             <div class="fe-box">
-                <img src="/database_project/img/features/fresh food.png" alt="">
+                <img src="../img/features/fresh food.png" alt="">
                 <h6>Free Shipping</h6>
             </div>
             <div class="fe-box">
-                <img src="/database_project/img/features/online seat.png" alt="">
+                <img src="../img/features/online seat.png" alt="">
                 <h6>Fresh Food</h6>
             </div>
             <div class="fe-box">
-                <img src="/database_project/img/features/online-shop.png" alt="">
+                <img src="../img/features/online-shop.png" alt="">
                 <h6>Seat Online</h6>
             </div>
             <div class="fe-box">
-                <img src="/database_project/img/features/food inter.png" alt="">
+                <img src="../img/features/food inter.png" alt="">
                 <h6>All Food Nationality</h6>
             </div>
         </section>
