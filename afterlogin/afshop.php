@@ -38,7 +38,7 @@
         href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="/database_project/beforelogin/style.css">
+        <link rel="stylesheet" href="../beforelogin/style.css">
         <link rel="stylesheet" href="afcart_afshop.css">
     </head>
 

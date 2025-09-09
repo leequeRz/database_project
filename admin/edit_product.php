@@ -174,7 +174,7 @@
                     <br>
                     
                     <?php
-                        $imagePath = '../img/' . $row['image'];
+                        $imagePath = '../products/' . $row['image'];
                         if (!empty($row['image']) && file_exists($imagePath)) {
                             echo '<img src="' . $imagePath . '">';
                         }

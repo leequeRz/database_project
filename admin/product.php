@@ -128,7 +128,7 @@
                             <td class="primary"><?php echo $row['category_name']; ?></td>
                             <td><?php echo $row['product_name']; ?></td>
                             <td><?php echo $row['price']; ?></td>
-                            <td><img src="../img/<?php echo $row['image']; ?>" width=10 height=50></td>
+                            <td><img src="../products/<?php echo $row['image']; ?>" width=10 height=50></td>
                             <td><a href="edit_product.php?edit=<?php echo $row['product_id']; ?>" class="button-edit">Edit</a></td>
                             <td><a href="product.php?delete=<?php echo $row['product_id']; ?>" class="button-delete">Delete</a></td>
                         </tr>
