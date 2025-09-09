@@ -14,7 +14,7 @@
         $product_price = $_POST['product_price'];
         $product_image = $_FILES['product_image']['name'];
         $product_image_tmp_name = $_FILES['product_image']['tmp_name'];
-        $product_image_folder = '../img/'.$product_image;
+        $product_image_folder = '../products/'.$product_image;
 
         $insert = "INSERT INTO `product`(`product_name`, `category_id`, `price`, `image`) VALUES ('$product_name','$product_category','$product_price','$product_image')";
 
