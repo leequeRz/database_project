@@ -1,7 +1,7 @@
 <?php
 
 	session_start();
-	require_once '../db.php';
+	require_once '../config/pdo_db.php';
 
     if (isset($_POST['signup'])){
         $email = $_POST['email'];

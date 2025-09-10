@@ -1,6 +1,6 @@
 <?php
 //เรียกใช้งานไฟล์เชื่อมต่อฐานข้อมูล
-require ('condb.php');
+require ('../config/db.php');
 //query
 $query = "SELECT * FROM seat_reserve ORDER BY reserve_id ASC";
 $result = mysqli_query($condb, $query);

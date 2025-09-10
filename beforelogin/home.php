@@ -1,7 +1,7 @@
 <?php
 
 	session_start();
-	require_once 'condb.php';
+	require_once '..config/db.php';
 
 ?>
 

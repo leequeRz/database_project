@@ -18,7 +18,7 @@
 
     //     $update = "UPDATE product SET image='$staff_image' WHERE staff_id = $id";
 
-    //     $result = mysqli_query($conn, $update);
+    //     $result = mysqli_query($condb, $update);
 
     //     if($result) {
     //         move_uploaded_file($staff_image_tmp_name, $staff_image_folder);
@@ -42,12 +42,12 @@
         if(($staff_firstname !="") && ($staff_lastname !="")&& ($staff_tel !="")){
             $update = "UPDATE staff_info SET staff_firstname='$staff_firstname', staff_lastname='$staff_lastname', staff_tel='$staff_tel', staff_DOB='$staff_dob', staff_gender='$staff_gender', vehicle_id='$vehicle_id' WHERE staff_id = $id";
 
-            $result = mysqli_query($conn, $update);
+            $result = mysqli_query($condb, $update);
 
             if($result) {
                 if ($vehicle_id == "") {
                     $query = "UPDATE staff_info SET vehicle_id = NULL WHERE staff_id = $id";
-                    mysqli_query($conn, $query);
+                    mysqli_query($condb, $query);
                     $_SESSION['success'] = "update ข้อมูลสำเร็จ";
                     header("Loacation: edit_staff.php");
                 } else {
@@ -72,13 +72,13 @@
         $confirmpassword = $_POST['confirm-password'];
         
         $query = "SELECT* FROM staff_info WHERE staff_id = $id";
-        $select = mysqli_query($conn, $query);
+        $select = mysqli_query($condb, $query);
         $row = mysqli_fetch_assoc($select);
        
         if($row['staff_password'] == $oldpassword){
             if($newpassword==$confirmpassword){
                 $update = "UPDATE staff_info SET staff_password='$newpassword' WHERE staff_id = $id";
-                mysqli_query($conn, $update);
+                mysqli_query($condb, $update);
                 $_SESSION['success'] ='อัพเดท password สำเร็จ';
                 header("Loacation: edit_staff.php");
             }else{
@@ -101,30 +101,30 @@
         if(($address1 !="") && ($city !="")&& ($province !="")&& ($postalcode !="")){
             
             $query = "SELECT* FROM staff_address WHERE staff_id = $id";
-            $select = mysqli_query($conn, $query);
+            $select = mysqli_query($condb, $query);
             $row = mysqli_fetch_assoc($select);
             
             if($row > 0){
                 
                     $update = "UPDATE staff_address SET staff_address_line1='$address1' WHERE staff_id = $id ";
-                    mysqli_query($conn, $update);
+                    mysqli_query($condb, $update);
                     $update = "UPDATE staff_address SET staff_address_line2='$address2' WHERE staff_id = $id ";
-                    mysqli_query($conn, $update);
+                    mysqli_query($condb, $update);
                     $update = "UPDATE staff_address SET staff_city='$city' WHERE staff_id = $id ";
-                    mysqli_query($conn, $update);
+                    mysqli_query($condb, $update);
                     $update = "UPDATE staff_address SET staff_province='$province' WHERE staff_id = $id ";
-                    mysqli_query($conn, $update);
+                    mysqli_query($condb, $update);
                     $update = "UPDATE staff_address SET staff_postal_code='$postalcode' WHERE staff_id = $id ";
-                    mysqli_query($conn, $update);
+                    mysqli_query($condb, $update);
                     $_SESSION['success'] ='อัพเดท address สำเร็จ';
                     header("Loacation: edit_staff.php");
                 
             }else{
                 $insert = "INSERT INTO staff_address( staff_id , staff_address_line1, staff_address_line2, staff_city, staff_province, staff_postal_code) VALUES ('$id','$address1','$address2','$city','$province','$postalcode')";
-                $result = mysqli_query($conn, $insert);
+                $result = mysqli_query($condb, $insert);
                 if ($address2 == "") {
                     $query = "UPDATE staff_address SET address2 = NULL WHERE staff_id = $id";
-                    mysqli_query($conn, $query);
+                    mysqli_query($condb, $query);
                     $_SESSION['success'] = "เพิ่ม address สำเร็จ";
                     header("Loacation: edit_staff.php");
                 } else {
@@ -185,7 +185,7 @@
 
     <?php
 
-        $select = mysqli_query($conn, "SELECT * FROM staff_info WHERE staff_id = $id");
+        $select = mysqli_query($condb, "SELECT * FROM staff_info WHERE staff_id = $id");
 
         while($row = mysqli_fetch_assoc($select)){
 

@@ -112,13 +112,13 @@
                     <tbody>
                         <?php
 
-                            $select = mysqli_query($conn, "SELECT * FROM product p, category c WHERE p.category_id = c.category_id");
+                            $select = mysqli_query($condb, "SELECT * FROM product p, category c WHERE p.category_id = c.category_id");
 
                             while($row = mysqli_fetch_assoc($select)) {
                             
                             if(isset($_GET['delete'])) {
                                 $id = $_GET['delete'];
-                                mysqli_query($conn, "DELETE FROM product WHERE product_id = $id");
+                                mysqli_query($condb, "DELETE FROM product WHERE product_id = $id");
                                 header('location:product.php');
                             }
                         ?>
@@ -155,7 +155,7 @@
                     <?php 
                     if(isset($_SESSION['staff_login'])){
                         $staff_id = $_SESSION['staff_login'];
-                        $select = mysqli_query($conn, "SELECT * FROM staff_info si, staff_position sp WHERE staff_id = $staff_id AND si.position_id = sp.position_id");
+                        $select = mysqli_query($condb, "SELECT * FROM staff_info si, staff_position sp WHERE staff_id = $staff_id AND si.position_id = sp.position_id");
                         $row = mysqli_fetch_assoc($select);
                     }
                     ?>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'condb.php';
+require_once '../config/db.php';
 
 if (!isset($_SESSION['user_login'])) {
     $_SESSION['error'] = 'ไม่มีข้อมูล';

@@ -115,13 +115,13 @@
                     <tbody>
                         <?php
 
-                            $select = mysqli_query($conn, "SELECT * FROM staff_info si, staff_position sp WHERE si.position_id = sp.position_id");
+                            $select = mysqli_query($condb, "SELECT * FROM staff_info si, staff_position sp WHERE si.position_id = sp.position_id");
 
                             while($row = mysqli_fetch_assoc($select)) {
 
                             if(isset($_GET['delete'])) {
                                 $id = $_GET['delete'];
-                                mysqli_query($conn, "DELETE FROM staff_info WHERE staff_id = $id");
+                                mysqli_query($condb, "DELETE FROM staff_info WHERE staff_id = $id");
                                 header('location:staff.php');
                             }
                             ?>
@@ -161,7 +161,7 @@
                     <?php 
                     if(isset($_SESSION['staff_login'])){
                         $staff_id = $_SESSION['staff_login'];
-                        $select = mysqli_query($conn, "SELECT * FROM staff_info si, staff_position sp WHERE staff_id = $staff_id AND si.position_id = sp.position_id");
+                        $select = mysqli_query($condb, "SELECT * FROM staff_info si, staff_position sp WHERE staff_id = $staff_id AND si.position_id = sp.position_id");
                         $row = mysqli_fetch_assoc($select);
                     }
                     ?>

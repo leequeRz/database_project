@@ -53,7 +53,7 @@
         else { 
             //เช็คอีเมลซ้ำในระบบ
             try{
-                $check_email = $conn->prepare("SELECT staff_email FROM staff_info WHERE staff_email =:email");
+                $check_email = $condb->prepare("SELECT staff_email FROM staff_info WHERE staff_email =:email");
                 $check_email->bindParam(":email",$email);
                 $check_email->execute();
                 $row = $check_email->fetch(PDO::FETCH_ASSOC);
@@ -63,7 +63,7 @@
                     header("location: register.php");
                 } else if(!isset($_SESSION['error'])){
                     // $passwordHash = password_hash($password,PASSWORD_DEFAULT);
-                    $stmt = $conn->prepare("INSERT INTO staff_info(staff_firstname,staff_lastname,staff_tel,staff_DOB,staff_email,staff_password,staff_gender,vehicle_id,position_id) 
+                    $stmt = $condb->prepare("INSERT INTO staff_info(staff_firstname,staff_lastname,staff_tel,staff_DOB,staff_email,staff_password,staff_gender,vehicle_id,position_id) 
                     VALUES(:firstname, :lastname,:tel ,:date, :email, :password,:gender,:vehicle_id,:position)");
                     $stmt->bindParam(":firstname",$firstname);
                     $stmt->bindParam(":lastname",$lastname);
@@ -78,7 +78,7 @@
                     $stmt->execute();
                     if ($vehicle_id == "") {
                         $query = "UPDATE staff_info SET vehicle_id = NULL WHERE staff_email = :email";
-                        $statement = $conn->prepare($query);
+                        $statement = $condb->prepare($query);
                         $statement->bindParam(':email', $email);  // Updated the parameter name here
                         $statement->execute();
                         $_SESSION['success'] = "ลงทะเบียนเรียบร้อย <a href='index.php' class='alert-link'>sign-in</a>";

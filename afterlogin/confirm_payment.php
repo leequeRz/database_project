@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-require_once 'condb.php';
+require_once '../config/db.php';
 if (!isset($_SESSION['user_login'])) {
     echo 'ไม่มีข้อมูล';
     exit; // Stop further execution if user is not logged in

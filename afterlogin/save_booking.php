@@ -1,6 +1,6 @@
 <?php
 //เรียกใช้งานไฟล์เชื่อมต่อฐานข้อมูล
-require_once 'condb.php';
+require_once '../config/db.php';
 session_start();
 	require_once '../db.php';
     if(!isset($_SESSION['user_login'])){

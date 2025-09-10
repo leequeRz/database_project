@@ -10,18 +10,18 @@
         // $reserve_id = $_SESSION['reserve_id'];
         // echo $reserve_id;
         $staff_id=$_SESSION['staff_login'];
-        $select = mysqli_query($conn, "SELECT * FROM seat_reserve WHERE reserve_id = '$id'");
+        $select = mysqli_query($condb, "SELECT * FROM seat_reserve WHERE reserve_id = '$id'");
         $row = mysqli_fetch_assoc($select);
             if ($row['table_status'] == 1) {
                 $sqlUpdate = "UPDATE seat_reserve SET table_status = 0 WHERE reserve_id = '$id'";
-                $update = mysqli_query($conn, $sqlUpdate);
+                $update = mysqli_query($condb, $sqlUpdate);
                 $sql = "UPDATE seat_reserve SET user_id = NULL WHERE reserve_id = '$id'";
-                $up = mysqli_query($conn, $sql);
+                $up = mysqli_query($condb, $sql);
                 header('location: seat.php');
                 exit;
             } else if($row['table_status'] == 0){
                 $sqlUpdate = "UPDATE seat_reserve SET table_status = 1 WHERE reserve_id = '$id'";
-                $update = mysqli_query($conn, $sqlUpdate);
+                $update = mysqli_query($condb, $sqlUpdate);
                 header('location: seat.php');
                 exit;
             }

@@ -111,13 +111,13 @@
                     <tbody>
                         <?php
 
-                            $select = mysqli_query($conn, "SELECT * FROM billing b, payment_method pm, order_type ot WHERE b.payment_id = pm.payment_id AND b.order_type_id = ot.order_type_id");
+                            $select = mysqli_query($condb, "SELECT * FROM billing b, payment_method pm, order_type ot WHERE b.payment_id = pm.payment_id AND b.order_type_id = ot.order_type_id");
 
                             while($row = mysqli_fetch_assoc($select)) {
 
                             if(isset($_GET['delete'])) {
                                 $id = $_GET['delete'];
-                                mysqli_query($conn, "DELETE FROM billing WHERE order_id = $id");
+                                mysqli_query($condb, "DELETE FROM billing WHERE order_id = $id");
                                 header('location:order.php');
                             }
                             ?>
@@ -167,7 +167,7 @@
                     <?php 
                     if(isset($_SESSION['staff_login'])){
                         $staff_id = $_SESSION['staff_login'];
-                        $select = mysqli_query($conn, "SELECT * FROM staff_info si, staff_position sp WHERE staff_id = $staff_id AND si.position_id = sp.position_id");
+                        $select = mysqli_query($condb, "SELECT * FROM staff_info si, staff_position sp WHERE staff_id = $staff_id AND si.position_id = sp.position_id");
                         $row = mysqli_fetch_assoc($select);
                     }
                     ?>

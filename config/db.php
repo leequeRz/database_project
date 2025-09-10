@@ -4,12 +4,7 @@
   $password = "";
   $dbname = "arherelee";
 
-  // Create connection
-  $conn = mysqli_connect($servername, $username, $password, $dbname);
-
-  // Check connection
-  // if (!$conn) {
-  //   die("Connection failed: " . mysqli_connect_error());
-  // }
-  // echo "Connected successfully";
+  $condb = mysqli_connect($servername, $username, $password, $dbname) 
+    or die("Error: " . mysqli_connect_error());
+  mysqli_query($condb, "SET NAMES 'utf8'");
 ?>

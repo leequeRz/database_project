@@ -16,7 +16,7 @@
 
         $insert = "INSERT INTO `promotion`(`promotion_id`, `expire_date`, `discount`, `minimum_cost`) VALUES ('$promotion_id','$promotion_expired_date','$promotion_discount','$promotion_minimum_cost')";
 
-        $result = mysqli_query($conn, $insert);
+        $result = mysqli_query($condb, $insert);
 
         if($result) {
             $_SESSION['success'] = 'เพิ่มข้อมูลเรียบร้อย';
@@ -24,7 +24,7 @@
         }
         else {
             $_SESSION['error'] = 'ใส่ข้อมูลไม่ถูกต้อง';
-            // echo "Failed: " . mysqli_error($conn);
+            // echo "Failed: " . mysqli_error($condb);
         }
     }
     
@@ -171,7 +171,7 @@
                     <?php 
                     if(isset($_SESSION['staff_login'])){
                         $staff_id = $_SESSION['staff_login'];
-                        $select = mysqli_query($conn, "SELECT * FROM staff_info si, staff_position sp WHERE staff_id = $staff_id AND si.position_id = sp.position_id");
+                        $select = mysqli_query($condb, "SELECT * FROM staff_info si, staff_position sp WHERE staff_id = $staff_id AND si.position_id = sp.position_id");
                         $row = mysqli_fetch_assoc($select);
                     }
                     ?>

@@ -18,7 +18,7 @@
 
         $insert = "INSERT INTO `product`(`product_name`, `category_id`, `price`, `image`) VALUES ('$product_name','$product_category','$product_price','$product_image')";
 
-        $result = mysqli_query($conn, $insert);
+        $result = mysqli_query($condb, $insert);
 
         if($result) {
             move_uploaded_file($product_image_tmp_name, $product_image_folder);
@@ -27,7 +27,7 @@
         }
         else {
             $_SESSION['error'] = 'ใส่ข้อมูลไม่ถูกต้อง';
-            // echo "Failed: " . mysqli_error($conn);
+            // echo "Failed: " . mysqli_error($condb);
         }
     }
     
@@ -193,7 +193,7 @@
                     <?php 
                     if(isset($_SESSION['staff_login'])){
                         $staff_id = $_SESSION['staff_login'];
-                        $select = mysqli_query($conn, "SELECT * FROM staff_info si, staff_position sp WHERE staff_id = $staff_id AND si.position_id = sp.position_id");
+                        $select = mysqli_query($condb, "SELECT * FROM staff_info si, staff_position sp WHERE staff_id = $staff_id AND si.position_id = sp.position_id");
                         $row = mysqli_fetch_assoc($select);
                     }
                     ?>
