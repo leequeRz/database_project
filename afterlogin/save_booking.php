@@ -2,7 +2,7 @@
 //เรียกใช้งานไฟล์เชื่อมต่อฐานข้อมูล
 require_once '../config/db.php';
 session_start();
-	require_once '../db.php';
+	require_once '../config/db.php';
     if(!isset($_SESSION['user_login'])){
         // header('location: index.php');
         echo 'ไม่มีข้อมูล';

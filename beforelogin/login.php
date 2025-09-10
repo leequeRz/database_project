@@ -1,7 +1,7 @@
 <?php
 
 	session_start();
-	require_once '../config/pdo_db.php';
+	require_once '../config/pdo.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

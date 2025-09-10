@@ -6,7 +6,7 @@ $query = "SELECT * FROM seat_reserve ORDER BY reserve_id ASC";
 $result = mysqli_query($condb, $query);
 // $row = mysqli_fetch_array($result);
     session_start();
-	require_once '../db.php';
+	require_once '../config/db.php';
     if(!isset($_SESSION['user_login'])){
         header('location:../beforelogin/home.php');
         // echo 'ไม่มีข้อมูล';

@@ -7,7 +7,7 @@ $result = mysqli_query($condb, $query);
 $row = mysqli_fetch_array($result);
 //print_r($row);
     session_start();
-	require_once '../db.php';
+	require_once '../config/db.php';
     if(!isset($_SESSION['user_login'])){
         header('location:../beforelogin/home.php');
         // echo 'ไม่มีข้อมูล';
